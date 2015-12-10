@@ -1,0 +1,55 @@
+﻿{
+    "manifestVersion": 1.0,
+    "id": "react-native-extension",
+    "name": "React Native Build",
+    "version": "0.1.0",
+    "publisher": "ms-vsclient",
+    "public": false,
+    "preview": true,
+    "description": "Streamline CI setup for your React Native app using a set of useful pre-defined build steps.",
+    "categories": [
+        "Build and release"
+    ],
+    "visibility": [
+        "Build and release"
+    ],
+    "tags": [
+        "React", "Native", "React Native", "Build", "Continuous Integration", "Android", "iOS", "Windows""
+    ],
+    "links": {
+        "repository": {
+            "uri": "http://github.com/Microsoft/vsts-react-native-tasks"
+        }
+    },
+    "icons": {
+        "default": "docs/media/logo_white_purple.png",
+        "large": "docs/media/logo_white_purple_large.png"
+    },
+    "branding": {
+        "color": "#5C2D91",
+        "theme": "dark"
+    },
+    "content":{
+        "details": {
+            "path": "docs/extension-overview.md"
+        },
+        "thirdpartynotice": {
+            "path": "ThirdPartyNotices.txt"
+        }
+    },
+    "files": [
+        {
+            "path": "Tasks/ReactNativeTask"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "reactnativebundletask",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [ "ms.vss-distributed-task.tasks" ],
+            "properties": {
+                "name": "Tasks/ReactNativeBundle"
+            }
+        }
+    ]
+}

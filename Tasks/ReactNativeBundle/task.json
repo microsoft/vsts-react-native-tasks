@@ -1,0 +1,112 @@
+{
+    "id": "E51A9093-748D-4F10-99ED-483F5372CDAA",
+    "name": "ReactNativeBundle",
+    "friendlyName": "React Native Bundle",
+    "description": "Generate a React Native bundle",
+    "helpMarkDown": "[More Information](http://go.microsoft.com/fwlink/?LinkID=692057)",
+    "category": "Build",
+    "visibility": [
+                "Build"
+                  ],
+    "author": "Microsoft Corporation",
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 7
+    },
+    "demands": [
+        "npm"
+    ],
+    "instanceNameFormat": "React Native Bundle $(platform)",
+     "groups": [
+        {
+            "name":"advanced",
+            "displayName":"Advanced",
+            "isExpanded":false
+        }
+    ],
+    "inputs": [
+        { 
+            "name": "platform", 
+            "type": "string", 
+            "label": "Platform", 
+            "defaultValue":"ios", 
+            "required":true, 
+            "helpMarkDown": "Platform to bundle. ios or android."
+        },
+        { 
+            "name": "entryFile", 
+            "type": "string", 
+            "label": "Entry File", 
+            "required":true, 
+            "defaultValue": "index.ios.js"
+        },
+        { 
+            "name": "bundleOutput", 
+            "type": "string", 
+            "label": "Bundle Output", 
+            "required":true, 
+            "defaultValue": "ios/main.jsbundle"
+        },
+        { 
+            "name": "devFlag", 
+            "type": "string", 
+            "label": "Dev Bundle", 
+            "required":true,
+            "default": true,
+            "helpMarkDown": "Warnings are disabled and code is minified if false."
+        },
+        { 
+            "name": "sourcemapOutput", 
+            "type": "string", 
+            "label": "Sourcemap Output Path", 
+            "required":false, 
+            "defaultValue": "",
+            "groupName":"advanced"
+        },
+        { 
+            "name": "assetsDest", 
+            "type": "string", 
+            "label": "Asset Destination Path", 
+            "required":false, 
+            "defaultValue": "",
+            "groupName":"advanced"
+        },
+        { 
+            "name": "transformer", 
+            "type": "string", 
+            "label": "Custom Transformer", 
+            "required":false, 
+            "defaultValue": "",
+            "groupName":"advanced"
+        },
+        { 
+            "name": "moreArgs", 
+            "type": "string", 
+            "label": "Arguments", 
+            "required":false, 
+            "defaultValue": "",
+            "groupName":"advanced"
+        },
+        { 
+            "name": "cwd", 
+            "type": "filePath", 
+            "label": "Working Directory", 
+            "defaultValue":"", 
+            "required":false,
+            "helpMarkDown": "Working directory for command runs. Defaults to the root of the repository.",
+            "groupName":"advanced"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "react-native-bundle.js",
+            "argumentFormat": ""
+        },
+        "PowerShell": {
+            "target": "$(currentDirectory)\\bootstrapper.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(currentDirectory)"
+        }        
+    }    
+}
