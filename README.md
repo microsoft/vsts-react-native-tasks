@@ -1,5 +1,5 @@
 <table style="width: 100%; border-style: none;"><tr>
-<td style="width: 140px; text-align: center;"><img src="docs/media/misc/cordova_logo_white_purple.png" /></td>
+<td style="width: 140px; text-align: center;"><img src="docs/media/logo_white_purple.png" /></td>
 <td><strong>Visual Studio Team Services Extension for React Native</strong><br />
 <i>Streamline CI setup for your React Native app using a set of useful pre-defined build steps.</i><br />
 <a href="http://www.microsoft.com">Install now!</a>
@@ -38,16 +38,16 @@ WORDS GO HERE
 
 1. [Enable basic auth](http://go.microsoft.com/fwlink/?LinkID=699518) in your TFS instance
 
-2. Install the tfx-cli and login
+2. Install the tfx-cli and login. If you already have the tfx-cli installed, be sure it is **0.3.6 or higher.**
 
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	npm install -g tfx-cli
-	tfx login --authType basic 
+	tfx login --auth-type basic 
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-3. Enter your collection URL (Ex: https://localhost:8080/tfs/DefaultCollection) and user name and password 
+3. Enter your collection URL (Ex: https://localhost:8080/tfs/DefaultCollection) and user name and password. Do not include a slash (/) at the end of the collection URL.
 
-4. Download the [latest release](http://go.microsoft.com/fwlink/?LinkID=691191) of the Cordova tasks locally and unzip
+4. Download the [latest release](https://github.com/Microsoft/vsts-react-native-tasks/releases) of the React Native tasks locally and unzip
 
 5. Type the following from the root of the repo from Windows:
 
