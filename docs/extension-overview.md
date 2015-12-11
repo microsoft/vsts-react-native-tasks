@@ -11,7 +11,7 @@ This extension provides a "React Native Bundle" task to simplify setup and deal 
 
 1. After installing the extension, upload your project to VSTS, TFS, or GitHub.
 
-2. Go to your Visual Studio Online or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon).
+2. Go to your VSTS or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon).
 
 3. Click **Add build step...** and select **npm** from the **Package** category
 
