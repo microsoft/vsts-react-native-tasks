@@ -22,11 +22,11 @@
         }
     },
     "icons": {
-        "default": "docs/media/logo_white_purple.png",
-        "large": "docs/media/logo_white_purple_large.png"
+        "default": "docs/media/logo.png",
+        "large": "docs/media/logo_large.png"
     },
     "branding": {
-        "color": "#5C2D91",
+        "color": "#51596A",
         "theme": "dark"
     },
     "content":{

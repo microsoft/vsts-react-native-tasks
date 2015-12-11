@@ -1,14 +1,19 @@
 <table style="width: 100%; border-style: none;"><tr>
-<td style="width: 140px; text-align: center;"><img src="docs/media/logo_white_purple.png" /></td>
+<td style="width: 140px; text-align: center;"><img src="docs/media/logo.png" /></td>
 <td><strong>Visual Studio Team Services Extension for React Native</strong><br />
 <i>Streamline CI setup for your React Native app using a set of useful pre-defined build steps.</i><br />
 <a href="http://www.microsoft.com">Install now!</a>
 </td>
 </tr></table>
 # Visual Studio Team Services Extension for React Native
+[React Native](http://facebook.github.io/react-native/) is an exciting new technology that allows you to bring awesome native app experiences to Android and iOS using a consistent developer experience based on JavaScript and React. Visual Studio Team Services (formerly Visual Studio Online) and Team Foundation Services (TFS) 2015 can be used for building and testing React Native apps in a Continuous Integration (CI) environment thanks to a new [cross-platform agent](http://go.microsoft.com/fwlink/?LinkID=533789) that supports OSX. 
 
-WORDS GO HERE
-	
+When you are developing your React Native app you'll be able to take advantage of the React Native packager but in a CI environment or for actual app deployments you'll want to create an offline "bundle".
+
+This extension provides a "React Native Bundle" task to simplify setup and deal with two specific problems: 
+1. Node.js version headaches - The task will fetch a compatible version of Node.js if not in use
+2. Preventing the "Packager" from starting up as a daemon process and hanging your CI build.
+
 ## Quick Start
 
 1. After installing the extension, upload your project to VSTS, TFS, or GitHub.
@@ -19,13 +24,11 @@ WORDS GO HERE
 
 3. Click **Add build step...** and select **React Native Bundle** from the **Build** category
 
-3. Click **Add build step...** and select **Xcode Build** from the **Build** category
+3. Click **Add build step...** and select **Xcode Build** or **Android Build** from the **Build** category
 
 4. Configure the three build steps - *Check out the tool tips for handy inline documentation.*
 
-## Usage and Tutorials
-
-WORDS GO HERE
+*Note: Be sure you are running version 0.3.10 or higher of the cross-platform agent and the latest Windows agent as these are required for VS Team Services extension to function. The VSTS hosted agent and [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) agents will already be on this version.*
 
 ##Installation
 
@@ -62,10 +65,6 @@ WORDS GO HERE
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 5. Profit!
-
-## Contact Us
-
-WORDS GO HERE
 
 ## Terms of Use
 By downloading and running this project, you agree to the license terms of the third party application software, Microsoft products, and components to be installed. 
