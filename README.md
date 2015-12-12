@@ -20,13 +20,13 @@ This extension provides a "React Native Bundle" task to simplify setup and deal 
 
 2. Go to your VSTS or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon).
 
-3. Click **Add build step...** and select **npm** from the **Package** category
+3. Click **Add build step...** and select **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build.
 
-3. Click **Add build step...** and select **React Native Bundle** from the **Build** category
+4. Click **Add build step...** and select **React Native Bundle** from the **Build** category
 
-3. Click **Add build step...** and select **Xcode Build** or **Android Build** from the **Build** category
+5. Click **Add build step...** and select **Xcode Build** or **Android Build** from the **Build** category
 
-4. Configure the three build steps - *Check out the tool tips for handy inline documentation.*
+6. Configure the three build steps - *Check out the tool tips for handy inline documentation.*
 
 *Note: Be sure you are running version 0.3.10 or higher of the cross-platform agent and the latest Windows agent as these are required for VS Team Services extension to function. The VSTS hosted agent and [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) agents will already be on this version.*
 
