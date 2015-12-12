@@ -93,18 +93,18 @@ function bundle()
     bundleCommand.arg([path.join('node_modules','react-native','local-cli','cli.js'), 'bundle', '--platform', platform, '--entry-file', entryFile, '--bundle-output', bundleOutput, '--dev' , devFlag]);
 
     var transformer = taskLibrary.getInput('transformer',false);
-    if(transformer && transformer !== '') {
+    if(transformer && transformer !== '' && transformer != buildSourceDirectory) {
         bundleCommand.arg(['--transformer', transformer]);        
     }
   
     var sourcemapOutput = taskLibrary.getInput('sourcemapOutput',false);
-    if(sourcemapOutput && sourcemapOutput !== '') {
+    if(sourcemapOutput && sourcemapOutput !== '' && sourcemapOutput != buildSourceDirectory) {
         bundleCommand.arg(['--sourcemap-output', sourcemapOutput]);        
     }
 
     var assetsDest = taskLibrary.getInput('assetsDest',false);
-    if(assetsDest && assetsDest !== '') {
-        bundleCommand.arg(['--asset-dest', assetsDest]);        
+    if(assetsDest && assetsDest !== '' && assetsDest != buildSourceDirectory) {
+        bundleCommand.arg(['--assets-dest', assetsDest]);        
     }
 
     var moreArgs = taskLibrary.getInput('moreArgs',false);

@@ -8,10 +8,10 @@ param (
     [string]$entryFile,
     [string]$bundleOutput,
     [string]$devFlag,
-    [string]$sourcemapOutput
-    [string]$assetsDest
-    [string]$transformer
-    [string]$moreArgs
+    [string]$sourcemapOutput,
+    [string]$assetsDest,
+    [string]$transformer,
+    [string]$moreArgs,
     [string]$cwd
 ) 
 
@@ -26,7 +26,7 @@ $Env:INPUT_ENTRYFILE = $entryFile
 $Env:INPUT_BUNDLEOUTPUT = $bundleOutput
 $Env:INPUT_DEVFLAG = $devFlag
 $Env:INPUT_SOURCEMAPOUTPUT = $sourcemapOutput
-$Env:INPUT_ASSETDEST = $assetsDest
+$Env:INPUT_ASSETSDEST = $assetsDest
 $Env:INPUT_TRANSFORMER = $transformer
 $Env:INPUT_MOREARGS = $moreArgs
 $Env:INPUT_CWD = $cwd

@@ -10,8 +10,8 @@ echo "This script will acquire and install some dependant node modules. Each pac
 echo "is licensed to you by its owner. Microsoft is not responsible for, nor does it" 
 echo "grant any licenses to, third-party packages. Some packages may include" 
 echo "dependencies which are governed by additional licenses. Follow the package" 
-echo "source URL (http://github.com/Microsoft/vsts-react-native-tasks) to determine any" 
-echo "dependencies."
+echo "source URL (http://github.com/Microsoft/vsts-react-native-tasks) to determine" 
+echo "any dependencies."
 echo
 read -p "Continue [Y/n]? " yn
 if [ -z "$yn" ]; then yn='y'; fi

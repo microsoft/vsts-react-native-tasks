@@ -43,7 +43,7 @@ function setupMaxNode(maxVersion, targetVersion) {
 function setupNode(targetVersion) {
     //TODO: Linux           
     var dlNodeCommand = new taskLibrary.ToolRunner(taskLibrary.which('curl', true));
-    if(process.platform=='darwin') {   
+    if(process.platform == 'darwin') {   
         dlNodeCommand.arg('-o node.tar.gz http://nodejs.org/dist/v'+ targetVersion + '/node-v' + targetVersion +'-darwin-x64.tar.gz');
         return dlNodeCommand.exec()
             .then(function() {
@@ -58,14 +58,8 @@ function setupNode(targetVersion) {
             });
     } else {
         taskLibrary.mkdirP('node-win-x86');
-        dlNodeCommand.arg('curl -o node-win-x86/node.exe https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.exe -o node-win-x86/node.lib https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.lib');
+        dlNodeCommand.arg('-o node-win-x86\\node.exe https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.exe -o node-win-x86\\node.lib https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.lib');
         return dlNodeCommand.exec()
-            .then(function() {
-                taskLibrary.debug('Extracting node...');
-                var unzipNode = new taskLibrary.ToolRunner(taskLibrary.which('bash', true));
-                unzipNode.arg('-c "gunzip -c node.tar.gz | tar xopf -"');
-                return unzipNode.exec();                        
-            })
             .then(function() {
                 // Add node's bin folder to start of path
                 process.env.PATH = path.resolve('node-win-x86') + path.delimiter + process.env.PATH;

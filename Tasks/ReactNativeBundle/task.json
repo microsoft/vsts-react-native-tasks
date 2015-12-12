@@ -3,7 +3,6 @@
     "name": "ReactNativeBundle",
     "friendlyName": "React Native Bundle",
     "description": "Generate a React Native bundle",
-    "helpMarkDown": "[More Information](http://go.microsoft.com/fwlink/?LinkID=692057)",
     "category": "Build",
     "visibility": [
                 "Build"
@@ -12,7 +11,7 @@
     "version": {
         "Major": 0,
         "Minor": 0,
-        "Patch": 8
+        "Patch": 17
     },
     "demands": [
         "npm"
@@ -30,35 +29,35 @@
             "name": "platform", 
             "type": "string", 
             "label": "Platform", 
-            "defaultValue":"ios", 
+            "defaultValue":"android", 
             "required":true, 
             "helpMarkDown": "Platform to bundle. ios or android."
         },
         { 
             "name": "entryFile", 
-            "type": "string", 
+            "type": "filePath", 
             "label": "Entry File", 
             "required":true, 
-            "defaultValue": "index.ios.js"
+            "defaultValue": "index.android.js"
         },
         { 
             "name": "bundleOutput", 
-            "type": "string", 
+            "type": "filePath", 
             "label": "Bundle Output", 
             "required":true, 
-            "defaultValue": "ios/main.jsbundle"
+            "defaultValue": "android/main.jsbundle"
         },
         { 
             "name": "devFlag", 
             "type": "boolean", 
             "label": "Dev Bundle", 
-            "required":true,
-            "default": true,
+            "required": true,
+            "defaultValue": true,
             "helpMarkDown": "Warnings are disabled and code is minified if false."
         },
         { 
             "name": "sourcemapOutput", 
-            "type": "string", 
+            "type": "filePath", 
             "label": "Sourcemap Output Path", 
             "required":false, 
             "defaultValue": "",
@@ -66,7 +65,7 @@
         },
         { 
             "name": "assetsDest", 
-            "type": "string", 
+            "type": "filePath", 
             "label": "Asset Destination Path", 
             "required":false, 
             "defaultValue": "",
@@ -74,7 +73,7 @@
         },
         { 
             "name": "transformer", 
-            "type": "string", 
+            "type": "filePath", 
             "label": "Custom Transformer", 
             "required":false, 
             "defaultValue": "",
