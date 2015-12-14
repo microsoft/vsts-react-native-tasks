@@ -1,8 +1,8 @@
 {
     "id": "E51A9093-748D-4F10-99ED-483F5372CDAA",
     "name": "ReactNativeBundle",
-    "friendlyName": "React Native Bundle",
-    "description": "Generate a React Native bundle",
+    "friendlyName": "React Native Prepare",
+    "description": "Prep a React Native project for native build",
     "category": "Build",
     "visibility": [
                 "Build"
@@ -11,12 +11,12 @@
     "version": {
         "Major": 0,
         "Minor": 0,
-        "Patch": 17
+        "Patch": 33
     },
     "demands": [
         "npm"
     ],
-    "instanceNameFormat": "React Native Bundle $(platform)",
+    "instanceNameFormat": "React Native Prepare $(platform)",
      "groups": [
         {
             "name":"advanced",
@@ -25,43 +25,34 @@
         }
     ],
     "inputs": [
+        
         { 
             "name": "platform", 
-            "type": "string", 
+            "type": "radio", 
             "label": "Platform", 
-            "defaultValue":"android", 
-            "required":true, 
-            "helpMarkDown": "Platform to bundle. ios or android."
-        },
+            "required":true,
+            "defaultValue": "ios",
+            "helpMarkDown": "Platform to prepare.",
+            "options": {
+                "ios": "iOS",
+                "android": "Android"
+            }
+        },  
         { 
             "name": "entryFile", 
             "type": "filePath", 
             "label": "Entry File", 
-            "required":true, 
-            "defaultValue": "index.android.js"
+            "required":false, 
+            "defaultValue": "index.ios.js",
+            "visibleRule": "platform = ios"
         },
         { 
             "name": "bundleOutput", 
             "type": "filePath", 
             "label": "Bundle Output", 
-            "required":true, 
-            "defaultValue": "android/main.jsbundle"
-        },
-        { 
-            "name": "devFlag", 
-            "type": "boolean", 
-            "label": "Dev Bundle", 
-            "required": true,
-            "defaultValue": true,
-            "helpMarkDown": "Warnings are disabled and code is minified if false."
-        },
-        { 
-            "name": "sourcemapOutput", 
-            "type": "filePath", 
-            "label": "Sourcemap Output Path", 
             "required":false, 
-            "defaultValue": "",
-            "groupName":"advanced"
+            "defaultValue": "ios/main.jsbundle",
+            "visibleRule": "platform = ios"
         },
         { 
             "name": "assetsDest", 
@@ -69,7 +60,24 @@
             "label": "Asset Destination Path", 
             "required":false, 
             "defaultValue": "",
-            "groupName":"advanced"
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "devFlag", 
+            "type": "boolean", 
+            "label": "Dev Bundle", 
+            "required": false,
+            "defaultValue": true,
+            "helpMarkDown": "Warnings are disabled and code is minified if false.",
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "sourcemapOutput", 
+            "type": "filePath", 
+            "label": "Sourcemap Output Path", 
+            "required":false, 
+            "defaultValue": "",
+            "visibleRule": "platform = ios"
         },
         { 
             "name": "transformer", 
@@ -77,7 +85,7 @@
             "label": "Custom Transformer", 
             "required":false, 
             "defaultValue": "",
-            "groupName":"advanced"
+            "visibleRule": "platform = ios"
         },
         { 
             "name": "moreArgs", 
@@ -85,7 +93,7 @@
             "label": "Arguments", 
             "required":false, 
             "defaultValue": "",
-            "groupName":"advanced"
+            "visibleRule": "platform = ios"
         },
         { 
             "name": "cwd", 

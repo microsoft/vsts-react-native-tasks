@@ -13,15 +13,18 @@ var	Q = require('q'),
     taskLibrary = require('./vso-task-lib-proxy.js'),
     exec = Q.nfbind(require('child_process').exec);
 
+var nodePath;
+
 function setupMinNode(minVersion, targetVersion) {
     return exec('node --version')
         .then(function(version) {
             version = removeExecOutputNoise(version);
             if(semver.lt(version, minVersion)) {
-                taskLibrary.debug('Node < ' + minVersion +', downloading  node ' + targetVersion);
+                taskLibrary.debug('Node < ' + minVersion +', downloading node ' + targetVersion);
                 return setupNode(targetVersion);
             } else {
                 taskLibrary.debug('Found node ' + version);
+                nodePath = path.dirname(taskLibrary.which('node'));
             }
         });
 }
@@ -35,6 +38,7 @@ function setupMaxNode(maxVersion, targetVersion) {
                 return setupNode(targetVersion);
             } else {
                 taskLibrary.debug('Found node ' + version);
+                nodePath = path.dirname(taskLibrary.which('node'));
             }
         });
 }
@@ -54,7 +58,8 @@ function setupNode(targetVersion) {
             })
             .then(function() {
                 // Add node's bin folder to start of path
-                process.env.PATH = path.resolve('node-v' + targetVersion + '-darwin-x64/bin') + path.delimiter + process.env.PATH;
+                nodePath = path.resolve('node-v' + targetVersion + '-darwin-x64/bin');
+                process.env.PATH = nodePath + path.delimiter + process.env.PATH;
             });
     } else {
         taskLibrary.mkdirP('node-win-x86');
@@ -62,7 +67,8 @@ function setupNode(targetVersion) {
         return dlNodeCommand.exec()
             .then(function() {
                 // Add node's bin folder to start of path
-                process.env.PATH = path.resolve('node-win-x86') + path.delimiter + process.env.PATH;
+                nodePath = path.resolve('node-win-x86');
+                process.env.PATH = nodePath + path.delimiter + process.env.PATH;
             });
     }
 }
@@ -75,5 +81,8 @@ function removeExecOutputNoise(input) {
 module.exports = {
 	setupNode: setupNode,
     setupMaxNode: setupMaxNode,
-    setupMinNode: setupMinNode
+    setupMinNode: setupMinNode,
+    getNodePath: function() {
+        return nodePath;
+    }
 }
