@@ -4,17 +4,17 @@
 */
 
 // TODO:
-//  - Check to see if node version already present (incremental builds)
-//  - Cache node/npm versions in a location outside of the project for reuse (and allow the location to be changed similar to CORODVA_CACHE for the Cordova task)
-//  - Linux support
 //  - Install and use correct default npm version on Windows (OSX already done)
+//  - Download w/o curl on Windows
 
 var	Q = require('q'),
     path = require('path'),
+    fs = require('fs'),
     semver = require('semver'),
     taskLibrary = require('./vso-task-lib-proxy.js'),
     exec = Q.nfbind(require('child_process').exec);
 
+var NODE_VERSION_CACHE = process.env['NODE_VERSION_CACHE'] || process.platform == 'win32' ? path.join(process.env['APPDATA'], 'node_version_cache') : path.join(process.env['HOME'], '.node_version_cache')
 var nodePath;
 
 function setupMinNode(minVersion, targetVersion) {
@@ -49,31 +49,41 @@ function setupMaxNode(maxVersion, targetVersion) {
 
 
 function setupNode(targetVersion) {
-    //TODO: Linux           
+    if(!fs.existsSync(NODE_VERSION_CACHE)) {
+        taskLibrary.mkdirP(NODE_VERSION_CACHE);
+    }
     var dlNodeCommand = new taskLibrary.ToolRunner(taskLibrary.which('curl', true));
-    if(process.platform == 'darwin') {   
-        dlNodeCommand.arg('-o node.tar.gz http://nodejs.org/dist/v'+ targetVersion + '/node-v' + targetVersion +'-darwin-x64.tar.gz');
-        return dlNodeCommand.exec()
-            .then(function() {
-                taskLibrary.debug('Extracting node...');
-                var unzipNode = new taskLibrary.ToolRunner(taskLibrary.which('bash', true));
-                unzipNode.arg('-c "gunzip -c node.tar.gz | tar xopf -"');
-                return unzipNode.exec();                        
-            })
-            .then(function() {
-                // Add node's bin folder to start of path
-                nodePath = path.resolve('node-v' + targetVersion + '-darwin-x64/bin');
-                process.env.PATH = nodePath + path.delimiter + process.env.PATH;
-            });
-    } else {
-        taskLibrary.mkdirP('node-win-x86');
-        dlNodeCommand.arg('-o node-win-x86\\node.exe https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.exe');
-        return dlNodeCommand.exec()
-            .then(function() {
-                // Add node's bin folder to start of path
-                nodePath = path.resolve('node-win-x86');
-                process.env.PATH = nodePath + path.delimiter + process.env.PATH;
-            });
+    if(process.platform == 'win32') {
+        nodePath = path.join(NODE_VERSION_CACHE, 'node-win-x86-' + targetVersion);
+        process.env.PATH = nodePath + path.delimiter + process.env.PATH;
+        // Download node version if not found     
+        if(!fs.existsSync(nodePath)) {
+            taskLibrary.mkdirP(nodePath);
+            dlNodeCommand.arg('-o "' + path.join(nodePath, 'node.exe') + '" https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.exe');
+            // TODO: Download correct npm version and place npm.cmd in same folder
+            //       Simple approach could be to simply grab the latest npm 2.x.x when Node < 5.0.0 and npm 3.x.x when 5.0.0 or up
+            return dlNodeCommand.exec();
+        } else {
+            return Q();
+        }
+    } else {   
+        var folderName = process.platform == 'darwin' ? ('node-v' + targetVersion + '-darwin-x64') : ('node-v' + targetVersion + '-linux-x86');
+        taskLibrary.debug('Node target: ' + folderName)
+        nodePath = path.join(NODE_VERSION_CACHE, folderName, 'bin');
+        process.env.PATH = nodePath + path.delimiter + process.env.PATH;   
+        // Download node version if not found     
+        if(!fs.existsSync(nodePath)) {
+            var gzPath =  path.join(NODE_VERSION_CACHE, folderName + '.tar.gz');
+            taskLibrary.debug('Downloading ' + gzPath)
+            dlNodeCommand.arg('-o "' + gzPath + '" http://nodejs.org/dist/v'+ targetVersion + '/' + folderName + '.tar.gz');
+            return dlNodeCommand.exec()
+                .then(function() {
+                    taskLibrary.debug('Extracting ' + gzPath);
+                    var unzipNode = new taskLibrary.ToolRunner(taskLibrary.which('bash', true));
+                    unzipNode.arg('-c "cd ' + NODE_VERSION_CACHE.replace(' ','\\ ') + '; gunzip -c ' + folderName + '.tar.gz | tar xopf -"');
+                    return unzipNode.exec();                        
+                })
+        }
     }
 }
 
