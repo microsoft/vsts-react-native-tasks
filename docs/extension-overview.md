@@ -1,11 +1,14 @@
+**This extension targets a platform (React Native) that is rapidly evolving. The extension is therefore in early preview and has been tested for use with React Native 0.16.0 and 0.17.0.**
+
 [React Native](http://facebook.github.io/react-native/) is an exciting new technology that allows you to bring awesome native app experiences to Android and iOS using a consistent developer experience based on JavaScript and React. Visual Studio Team Services (formerly Visual Studio Online) and Team Foundation Services (TFS) 2015 can be used for building and testing React Native apps in a Continuous Integration (CI) environment thanks to a new [cross-platform agent](http://go.microsoft.com/fwlink/?LinkID=533789) that supports OSX. 
 
 # Visual Studio Team Services Extension for React Native
 When you are developing your React Native app you'll be able to take advantage of the React Native packager but in a CI environment or for actual app deployments you'll want to create an offline "bundle" and there are a few chanllenges that need to be resolved.
 
 This extension provides a "React Native Prepare" task to simplify setup and deal with two specific problems: 
-1. Node.js version headaches - The task will fetch a compatible version of Node.js if not in use.
-2. Preventing the "Packager" from starting up as a daemon process and hanging your CI build for iOS.
+
+1. Node.js version headaches - The task will fetch and alter projects to use a compatible version of Node.js if not found globally installed.
+2. Preventing the "Packager" from starting up as a daemon process and hanging your CI build for iOS and instead explicitly "bundling" prior to the build.
 
 ## Quick Start
 
