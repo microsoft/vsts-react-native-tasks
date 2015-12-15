@@ -11,29 +11,35 @@ var path = require('path'),
     taskLibrary = require('./lib/vso-task-lib-proxy.js');
 
 // Task does the following:
-// 1. TODO: Check if react native is npm isntalled, if not error saying a npm install task should be added to the build pipeline 
-// 2. Setup node
-//  -TODO: Linux
-// 3. If iOS, fix project and call bundle directly
-// 4. If Android, update react-native CLI calls in react.gradle to use node version
-
-// ** QUESTION: npm install for user?  Maybe as optional flag?
+// 1. Setup node
+// 2. If iOS, fix project and call bundle directly
+// 3. If Android, update react-native CLI calls in react.gradle to use node version
 
 var buildSourceDirectory = taskLibrary.getVariable('build.sourceDirectory') || taskLibrary.getVariable('build.sourcesDirectory');
 //Process working directory
 var workingDirectory = taskLibrary.getInput('cwd', /*required*/ false) || buildSourceDirectory;
 taskLibrary.cd(workingDirectory);
-
 // Target platform
 var platform = taskLibrary.getInput("platform",true);
 
-nodeManager.setupMinNode('4.0.0','4.2.3')
-    .then(fixProjects)
-    .fail(function (err) {
-        console.error(err.message);
-        taskLibrary.debug('taskRunner fail');
-        taskLibrary.exit(1);
-    });
+if(!fs.existsSync(path.join(workingDirectory, 'node_modules', 'react-native'))) {
+    taskLibrary.debug('react-native npm package not installed.');
+    console.error('React Native npm package (react-native) not installed locally. Add the "npm" task to your build definition with the "install" command and "--no-optional --only=prod" under Advanced > Arguments.');
+    taskLibrary.exit(1);
+} else {
+    nodeManager.setupMinNode('4.0.0','4.2.3')
+        .then(fixProjects)
+        .then(function() {
+            console.log('Success: Project ready for native build.')
+        })
+        .fail(function (err) {
+            console.error(err.message);
+            taskLibrary.debug('taskRunner fail');
+            taskLibrary.exit(1);
+        });    
+}
+
+
 
 function fixProjects()
 {
