@@ -11,7 +11,7 @@
     "version": {
         "Major": 0,
         "Minor": 0,
-        "Patch": 33
+        "Patch": 39
     },
     "demands": [
         "npm"
@@ -107,7 +107,7 @@
     ],
     "execution": {
         "Node": {
-            "target": "react-native-bundle.js",
+            "target": "react-native.js",
             "argumentFormat": ""
         },
         "PowerShell": {

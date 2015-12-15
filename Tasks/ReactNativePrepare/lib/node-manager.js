@@ -4,6 +4,8 @@
 */
 
 // TODO:
+//  - Check to see if node version already present (incremental builds)
+//  - Cache node/npm versions in a location outside of the project for reuse (and allow the location to be changed similar to CORODVA_CACHE for the Cordova task)
 //  - Linux support
 //  - Install and use correct default npm version on Windows (OSX already done)
 
@@ -16,7 +18,8 @@ var	Q = require('q'),
 var nodePath;
 
 function setupMinNode(minVersion, targetVersion) {
-    return exec('node --version')
+    var nodeCli = taskLibrary.which('node');
+    return exec('"' + nodeCli + '" --version')
         .then(function(version) {
             version = removeExecOutputNoise(version);
             if(semver.lt(version, minVersion)) {
@@ -24,13 +27,14 @@ function setupMinNode(minVersion, targetVersion) {
                 return setupNode(targetVersion);
             } else {
                 taskLibrary.debug('Found node ' + version);
-                nodePath = path.dirname(taskLibrary.which('node'));
+                nodePath = path.dirname(nodeCli);
             }
         });
 }
 
 function setupMaxNode(maxVersion, targetVersion) {
-    return exec('node --version')
+    var nodeCli = taskLibrary.which('node');
+    return exec('"' + nodeCli + '" --version')
         .then(function(version) {
             version = removeExecOutputNoise(version);
             if(semver.gt(version, maxVersion)) {
@@ -38,7 +42,7 @@ function setupMaxNode(maxVersion, targetVersion) {
                 return setupNode(targetVersion);
             } else {
                 taskLibrary.debug('Found node ' + version);
-                nodePath = path.dirname(taskLibrary.which('node'));
+                nodePath = path.dirname(nodeCli);
             }
         });
 }
@@ -63,7 +67,7 @@ function setupNode(targetVersion) {
             });
     } else {
         taskLibrary.mkdirP('node-win-x86');
-        dlNodeCommand.arg('-o node-win-x86\\node.exe https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.exe -o node-win-x86\\node.lib https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.lib');
+        dlNodeCommand.arg('-o node-win-x86\\node.exe https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.exe');
         return dlNodeCommand.exec()
             .then(function() {
                 // Add node's bin folder to start of path

@@ -62,7 +62,7 @@ function fixGradleProj() {
     } else {   
         taskLibrary.debug('Platform is Android - attempting to patch ' + reactGradleFile + ' to use specified node verison.');
         var nodePath = path.join(nodeManager.getNodePath(), 'node');
-        var cliPath = path.join(workingDirectory, 'node_modules', 'react-native', 'cli.js').replace(/\\/g,'\\\\' );
+        var cliPath = path.join(workingDirectory, 'node_modules', 'react-native', 'local-cli','cli.js').replace(/\\/g,'\\\\' );
         var newContents = reactGradleContents.replace(/"react-native",\s?"bundle",/gm, '"'+ nodePath.replace(/\\/g,'\\\\' ) + '", "' + cliPath + '", "bundle",');        
         fs.writeFileSync(reactGradleFile, newContents,'utf8');                
     }       

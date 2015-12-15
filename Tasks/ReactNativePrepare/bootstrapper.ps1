@@ -41,4 +41,4 @@ if(!$node)
 
 #cordova Script is in same spot as this powershell script
 $scriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-Invoke-Tool -Path $node.Path -Arguments "react-native-bundle.js ##vso-task-powershell" -WorkingFolder $scriptRoot
+Invoke-Tool -Path $node.Path -Arguments "react-native.js ##vso-task-powershell" -WorkingFolder $scriptRoot
