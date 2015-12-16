@@ -4,7 +4,7 @@
 */
 
 // TODO:
-//  - Install and use correct default npm version on Windows (OSX already done)
+//  - Install and use correct default npm version on Windows for realzies - Right now just does latest node 2 for < 5.0.0 and 3 otherwise
 //  - Download w/o curl on Windows
 
 var	Q = require('q'),
@@ -14,17 +14,17 @@ var	Q = require('q'),
     taskLibrary = require('./vso-task-lib-proxy.js'),
     exec = Q.nfbind(require('child_process').exec);
 
-var NODE_VERSION_CACHE = process.env['NODE_VERSION_CACHE'] || process.platform == 'win32' ? path.join(process.env['APPDATA'], 'node_version_cache') : path.join(process.env['HOME'], '.node_version_cache')
+var NODE_VERSION_CACHE = process.env['NODE_VERSION_CACHE'] || process.platform == 'win32' ? path.join(process.env['APPDATA'], 'node-version-cache') : path.join(process.env['HOME'], '.node-version-cache')
 var nodePath;
 
-function setupMinNode(minVersion, targetVersion) {
+function setupMinNode(minVersion, targetVersion, /*optional*/ installNpmOnWindows) {
     var nodeCli = taskLibrary.which('node');
     return exec('"' + nodeCli + '" --version')
         .then(function(version) {
             version = removeExecOutputNoise(version);
             if(semver.lt(version, minVersion)) {
                 taskLibrary.debug('Node < ' + minVersion +', downloading node ' + targetVersion);
-                return setupNode(targetVersion);
+                return setupNode(targetVersion, installNpmOnWindows);
             } else {
                 taskLibrary.debug('Found node ' + version);
                 nodePath = path.dirname(nodeCli);
@@ -32,14 +32,14 @@ function setupMinNode(minVersion, targetVersion) {
         });
 }
 
-function setupMaxNode(maxVersion, targetVersion) {
+function setupMaxNode(maxVersion, targetVersion, /*optional*/ installNpmOnWindows) {
     var nodeCli = taskLibrary.which('node');
     return exec('"' + nodeCli + '" --version')
         .then(function(version) {
             version = removeExecOutputNoise(version);
             if(semver.gt(version, maxVersion)) {
                 taskLibrary.debug('Node > ' + maxVersion +', downloading node ' + targetVersion);
-                return setupNode(targetVersion);
+                return setupNode(targetVersion, installNpmOnWindows);
             } else {
                 taskLibrary.debug('Found node ' + version);
                 nodePath = path.dirname(nodeCli);
@@ -47,31 +47,46 @@ function setupMaxNode(maxVersion, targetVersion) {
         });
 }
 
-
-function setupNode(targetVersion) {
+function setupNode(targetVersion, /*optional*/ installNpmOnWindows) {
     if(!fs.existsSync(NODE_VERSION_CACHE)) {
         taskLibrary.mkdirP(NODE_VERSION_CACHE);
     }
     var dlNodeCommand = new taskLibrary.ToolRunner(taskLibrary.which('curl', true));
     if(process.platform == 'win32') {
+        var promise;
         nodePath = path.join(NODE_VERSION_CACHE, 'node-win-x86-' + targetVersion);
         process.env.PATH = nodePath + path.delimiter + process.env.PATH;
+        process.env.PATH = path.join(nodePath, 'node_modules', '.bin') + path.delimiter + process.env.PATH;  // If npm happens to be installed - does no harm if not
         // Download node version if not found     
         if(!fs.existsSync(nodePath)) {
             taskLibrary.mkdirP(nodePath);
             dlNodeCommand.arg('-o "' + path.join(nodePath, 'node.exe') + '" https://nodejs.org/dist/v' + targetVersion + '/win-x86/node.exe');
-            // TODO: Download correct npm version and place npm.cmd in same folder
-            //       Simple approach could be to simply grab the latest npm 2.x.x when Node < 5.0.0 and npm 3.x.x when 5.0.0 or up
-            return dlNodeCommand.exec();
+            promise = dlNodeCommand.exec();
         } else {
-            return Q();
+            promise = Q();
         }
+
+        // TODO: If "installNpmOnWindows" set, download correct npm version and add node_modules/.bin into path. 
+        //       There does not appear to be a great way to do this w/o the Windows MSI
+        //       Right now it simply grabs the latest npm 2.x.x when Node target is < 5.0.0 and npm 3.x.x when 5.0.0 or up.
+        //       Uses whatever npm version is found to install npm locally.        
+        if(typeof(installNpmOnWindows) === 'undefined') {
+            installNpmOnWindows = true;
+        }
+        if(installNpmOnWindows && !fs.existsSync(path.join(nodePath,'node_modules','npm'))) {
+            // Use cmd to temporarly switch to cache drive letter and path and do npm install npm
+            var npmInstallCmd = new taskLibrary.ToolRunner(taskLibrary.which('cmd', true));
+            var npmVersion = semver.lt(targetVersion, '5.0.0') ? '^2.11.3' : '^3.5.2';
+            npmInstallCmd.arg('/c cd ' + nodePath.substr(0,2) + ' && cd "' + nodePath + '" && npm install npm@' + npmVersion);
+            promise = promise.then(npmInstallCmd.exec());
+        }
+        return promise;
     } else {   
         var folderName = process.platform == 'darwin' ? ('node-v' + targetVersion + '-darwin-x64') : ('node-v' + targetVersion + '-linux-x86');
         taskLibrary.debug('Node target: ' + folderName)
         nodePath = path.join(NODE_VERSION_CACHE, folderName, 'bin');
         process.env.PATH = nodePath + path.delimiter + process.env.PATH;   
-        // Download node version if not found     
+        // Download node version if not found - npm also grabbed, installed, and used     
         if(!fs.existsSync(nodePath)) {
             var gzPath =  path.join(NODE_VERSION_CACHE, folderName + '.tar.gz');
             taskLibrary.debug('Downloading ' + gzPath)

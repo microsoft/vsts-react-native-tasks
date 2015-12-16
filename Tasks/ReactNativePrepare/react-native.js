@@ -27,7 +27,7 @@ if(!fs.existsSync(path.join(workingDirectory, 'node_modules', 'react-native'))) 
     console.error('React Native npm package (react-native) not installed locally. Add the "npm" task to your build definition with the "install" command and "--no-optional --only=prod" under Advanced > Arguments.');
     taskLibrary.exit(1);
 } else {
-    nodeManager.setupMinNode('4.0.0','4.2.3')
+    nodeManager.setupMinNode('4.0.0','4.2.3', false)
         .then(fixProjects)
         .then(function() {
             console.log('Success: Project ready for native build.')
