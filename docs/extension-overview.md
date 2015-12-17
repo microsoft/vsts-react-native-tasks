@@ -16,7 +16,7 @@ This extension provides a "React Native Prepare" task to simplify setup and deal
 
 2. Go to your VSTS or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon).
 
-3. Click **Add build step...** and select **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build.
+3. Click **Add build step...** and select **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
 
 4. Click **Add build step...** and select **React Native Prepare** from the **Build** category
 

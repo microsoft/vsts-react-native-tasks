@@ -77,7 +77,7 @@ function setupNode(targetVersion, /*optional*/ installNpmOnWindows) {
             // Use cmd to temporarly switch to cache drive letter and path and do npm install npm
             var npmInstallCmd = new taskLibrary.ToolRunner(taskLibrary.which('cmd', true));
             var npmVersion = semver.lt(targetVersion, '5.0.0') ? '^2.11.3' : '^3.5.2';
-            npmInstallCmd.arg('/c cd ' + nodePath.substr(0,2) + ' && cd "' + nodePath + '" && npm install npm@' + npmVersion);
+            npmInstallCmd.arg('/c cd ' + nodePath.substr(0,2) + ' && cd "' + nodePath + '" && npm install --force npm@' + npmVersion);
             promise = promise.then(npmInstallCmd.exec());
         }
         return promise;

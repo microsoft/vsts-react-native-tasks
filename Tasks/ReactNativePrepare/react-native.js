@@ -75,6 +75,15 @@ function fixGradleProj() {
 }
 
 function fixXcproj() {
+    // The default behavior of React Native iOS is to start up the packager server on build.  The problem with this
+    // behavior is that it is not only unncessisary but also will _hang_ VSTS since it will wait for the process
+    // to terminate before marking the build complete assuming that there is some lagging cleanup task.  
+    // While this is a good assumption generally, it causes problems here so we will trigger offline bundling manually
+    // and update the packager server startup script to only start if an environment var is not set. 
+    //
+    // **TODO: Submit PR to react-native project so we no longer have to do this. Sync up detection if a patch has
+    //         already been applied so that it is not done for React Native projects after the PR has been accepted.
+    //
     // Look through all xpbproj files and add in reference to skip if running in CI env
     var projFiles = glob.sync('ios/*.xcodeproj/project.pbxproj');
     projFiles.forEach(function(proj) {
@@ -137,6 +146,12 @@ function bundle()
 
     var assetsDest = taskLibrary.getInput('assetsDest',false);
     if(assetsDest && assetsDest !== '' && assetsDest != buildSourceDirectory) {
+        if(!fs.existsSync(assetsDest)) {
+            var xcassetDirs = glob.sync(assetsDest);
+            if(xcassetDirs && xcassetDirs.length >0 ) {
+                assetsDest = xcassetDirs[0]; 
+            }
+        }
         bundleCommand.arg(['--assets-dest', assetsDest]);        
     }
 

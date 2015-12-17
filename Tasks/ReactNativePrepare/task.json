@@ -2,7 +2,7 @@
     "id": "E51A9093-748D-4F10-99ED-483F5372CDAA",
     "name": "ReactNativeBundle",
     "friendlyName": "React Native Prepare",
-    "description": "Prep a React Native project for native build",
+    "description": "Prep a React Native project to use the right version of Node.js and succesfully generate an offline bundle.",
     "category": "Build",
     "visibility": [
                 "Build"
@@ -11,7 +11,7 @@
     "version": {
         "Major": 0,
         "Minor": 0,
-        "Patch": 54
+        "Patch": 56
     },
     "demands": [
         "npm"
@@ -32,7 +32,7 @@
             "label": "Platform", 
             "required":true,
             "defaultValue": "ios",
-            "helpMarkDown": "Platform to prepare.",
+            "helpMarkDown": "Platform to prepare. iOS offline bundle settings can be configured via this task while Android offline bundle settings should be configured in android/app/build.gradle.",
             "options": {
                 "ios": "iOS",
                 "android": "Android"
@@ -59,7 +59,7 @@
             "type": "filePath", 
             "label": "Asset Destination Path", 
             "required":false, 
-            "defaultValue": "",
+            "defaultValue": "ios/*/Images.xcassets",
             "visibleRule": "platform = ios"
         },
         { 
