@@ -33,7 +33,7 @@ Also be sure to check out the super cool continous delivery features in the [**C
 
 5. Click **Add build step...** and select **Xcode Build** or **Android Build** from the **Build** category
 
-6. Configure the three build steps - *Check out the tool tips for handy inline documentation.**
+6. Configure the three build steps - *Check out the tool tips for handy inline documentation.*
 
 In addition, be sure you are running version **0.3.10** or higher of the cross-platform agent and the latest Windows agent as these are required for VS Team Services extension to function. The VSTS hosted agent and [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) agents will already be on this version.
 
