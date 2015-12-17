@@ -17,6 +17,8 @@ This extension provides a "React Native Prepare" task to simplify setup and deal
 1. Node.js version headaches - The task will fetch and alter projects to use a compatible version of Node.js if not found globally installed.
 2. Preventing the "Packager" from starting up as a daemon process and hanging your CI build for iOS and instead explicitly "bundling" prior to the build.
 
+Also be sure to check out the super cool continous delivery features in the [**Code Push VSTS extension**](https://marketplace.visualstudio.com/items/ms-vsclient.code-push) which also supports React Native!
+
 ## Quick Start
 
 1. After installing the extension, upload your project to VSTS, TFS, or GitHub.
@@ -29,7 +31,7 @@ This extension provides a "React Native Prepare" task to simplify setup and deal
 
 5. Click **Add build step...** and select **Xcode Build** or **Android Build** from the **Build** category
 
-6. Configure the three build steps - *Check out the tool tips for handy inline documentation.*
+6. Configure the three build steps - *Check out the tool tips for handy inline documentation.**
 
 In addition, be sure you are running version **0.3.10** or higher of the cross-platform agent and the latest Windows agent as these are required for VS Team Services extension to function. The VSTS hosted agent and [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) agents will already be on this version.
 
