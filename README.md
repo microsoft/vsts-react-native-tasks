@@ -15,7 +15,7 @@ When you are developing your React Native app you'll be able to take advantage o
 This extension provides a "React Native Prepare" task to simplify setup and deal with two specific problems: 
 
 1. Node.js version headaches - The task will fetch and alter projects to use a compatible version of Node.js if not found globally installed.
-2. Preventing the "Packager" from starting up as a daemon process and hanging your CI build for iOS and instead explicitly "bundling" prior to the build.
+2. Preventing the "Packager" from starting up as a server and hanging your CI build for iOS and instead explicitly "bundling" prior to the build.
 
 Also be sure to check out the super cool continous delivery features in the [**CodePush VSTS extension**](https://marketplace.visualstudio.com/items/ms-vsclient.code-push) which also supports React Native!
 
