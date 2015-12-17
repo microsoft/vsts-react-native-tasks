@@ -12,6 +12,8 @@ This extension provides a "React Native Prepare" task to simplify setup and deal
 
 Also be sure to check out the super cool continous delivery features in the [**CodePush VSTS extension**](https://marketplace.visualstudio.com/items/ms-vsclient.code-push) which also supports React Native!
 
+![React Native Prepare](media/screen.png)
+
 ## Quick Start
 
 1. After installing the extension, upload your project to VSTS, TFS, or GitHub.
