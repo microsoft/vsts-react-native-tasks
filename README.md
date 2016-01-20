@@ -25,7 +25,7 @@ Also be sure to check out the super cool continous delivery features in the [**C
 
 1. After installing the extension, upload your project to VSTS, TFS, or GitHub.
 
-2. Go to your VSTS or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon).
+2. Go to your VSTS or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon). You can use the Empty template.
 
 3. Click **Add build step...** and select **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
 
