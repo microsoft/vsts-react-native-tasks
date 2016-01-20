@@ -1,7 +1,7 @@
 {
   "name": "vsts-task-react-native-bundle",
   "version": "1.0.0",
-  "description": "A VSTS build task for creating React Native bundless.",
+  "description": "A VSTS build task for creating React Native bundles.",
   "author": "Microsoft",
   "license": "MIT",
   "dependencies": {
