@@ -25,8 +25,7 @@
         }
     ],
     "inputs": [
-        
-        { 
+        {
             "name": "platform", 
             "type": "radio", 
             "label": "Platform", 
@@ -68,7 +67,7 @@
             "label": "Dev Bundle", 
             "required": false,
             "defaultValue": true,
-            "helpMarkDown": "Warnings are disabled and code is minified if false.",
+            "helpMarkDown": "When unchecked, warnings are disabled and code is minified.",
             "visibleRule": "platform = ios"
         },
         { 
