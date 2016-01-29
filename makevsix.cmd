@@ -7,6 +7,13 @@ REM
 CALL npm --version > NUL
 IF NOT %ERRORLEVEL%==0 GOTO FAILED
 
+:NPMINSTALL
+ECHO Installing dependencies...
+CALL npm install --only=prod
+IF NOT %ERRORLEVEL%==0 GOTO INSTALLFAILED
+CALL node bin/tfxupload.js --installonly
+IF NOT %ERRORLEVEL%==0 GOTO INSTALLFAILED
+
 CALL vset --version > NUL
 IF NOT %ERRORLEVEL%==0 GOTO VSETINSTALL
 
@@ -21,6 +28,10 @@ EXIT /B 0
 ECHO Installing vset...
 CALL npm install -g vset
 IF %ERRORLEVEL%==0 GOTO CREATEVSIX
+
+:INSTALLFAILED
+ECHO Failed to install npm packages. Ensure Node.js is installed and node and npm are in your path.
+EXIT /B %ERRORLEVEL%
 
 :FAILED
 ECHO Vsix creation failed
