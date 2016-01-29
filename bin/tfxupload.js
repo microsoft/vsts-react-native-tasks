@@ -4,29 +4,29 @@
 */
 
 var path = require('path'),
-	fs = require('fs'),
-	Q = require ('q'),
-	exec = Q.nfbind(require('child_process').exec);
+    fs = require('fs'),
+    Q = require ('q'),
+    exec = Q.nfbind(require('child_process').exec);
 
 function installTasks() {
-	var promise = Q();
-	var tasksPath = path.join(process.cwd(), 'Tasks');
-	var tasks = fs.readdirSync(tasksPath);
-	console.log(tasks.length + ' tasks found.')
-	tasks.forEach(function(task) {
-		promise = promise.then(function() {
-				console.log('Uploading task ' + task);
-				process.chdir(path.join(tasksPath,task));
-				return npmInstall();
-			})
-			.then(tfxUpload);
-	});	
-	return promise;
+    var promise = Q();
+    var tasksPath = path.join(process.cwd(), 'Tasks');
+    var tasks = fs.readdirSync(tasksPath);
+    console.log(tasks.length + ' tasks found.')
+    tasks.forEach(function(task) {
+        promise = promise.then(function() {
+                console.log('Uploading task ' + task);
+                process.chdir(path.join(tasksPath,task));
+                return npmInstall();
+            })
+            .then(tfxUpload);
+    });    
+    return promise;
 }
 
 function npmInstall() {
-	console.log('Installing npm dependencies for task...');
-	return exec('npm install --only=prod').then(logExecReturn);
+    console.log('Installing npm dependencies for task...');
+    return exec('npm install --only=prod').then(logExecReturn);
 }
 
 function tfxUpload() {
@@ -47,8 +47,8 @@ function logExecReturn(result) {
 }
 
 installTasks()
-	.done(function() {
-		console.log('Complete!');
-	}, function(input) {
-		console.log('Failed!');
-	});
+    .done(function() {
+        console.log('Complete!');
+    }, function(input) {
+        console.log('Failed!');
+    });
