@@ -30,8 +30,13 @@ function npmInstall() {
 }
 
 function tfxUpload() {
-	console.log('Transferring...')
-	return exec('tfx build tasks upload --task-path . --overwrite true').then(logExecReturn);
+    var justNpmInstall = process.argv.indexOf("--installonly") != -1;
+    if (justNpmInstall) {
+        console.log('Skipping upload, just doing npm install')
+    } else {
+        console.log('Transferring...')
+        return exec('tfx build tasks upload --task-path . --overwrite true').then(logExecReturn);
+    }
 }
 
 function logExecReturn(result) {
@@ -43,7 +48,7 @@ function logExecReturn(result) {
 
 installTasks()
 	.done(function() {
-		console.log('Upload complete!');
+		console.log('Complete!');
 	}, function(input) {
-		console.log('Upload failed!');
+		console.log('Failed!');
 	});
