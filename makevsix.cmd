@@ -7,15 +7,15 @@ REM
 CALL npm --version > NUL
 IF NOT %ERRORLEVEL%==0 GOTO FAILED
 
+CALL vset --version > NUL
+IF NOT %ERRORLEVEL%==0 GOTO VSETINSTALL
+
 :NPMINSTALL
-ECHO Installing dependencies...
+ECHO Installing Dependencies...
 CALL npm install --only=prod
 IF NOT %ERRORLEVEL%==0 GOTO INSTALLFAILED
 CALL node bin/tfxupload.js --installonly
 IF NOT %ERRORLEVEL%==0 GOTO INSTALLFAILED
-
-CALL vset --version > NUL
-IF NOT %ERRORLEVEL%==0 GOTO VSETINSTALL
 
 :CREATEVSIX
 ECHO Creating vsix...

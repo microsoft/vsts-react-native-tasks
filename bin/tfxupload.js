@@ -15,11 +15,14 @@ function installTasks() {
     console.log(tasks.length + ' tasks found.')
     tasks.forEach(function(task) {
         promise = promise.then(function() {
-                console.log('Uploading task ' + task);
+                console.log('Processing task ' + task);
                 process.chdir(path.join(tasksPath,task));
                 return npmInstall();
-            })
-            .then(tfxUpload);
+            });
+
+        if (process.argv.indexOf("--installonly") == -1) {
+            promise = promise.then(tfxUpload);
+        }
     });    
     return promise;
 }
@@ -30,13 +33,8 @@ function npmInstall() {
 }
 
 function tfxUpload() {
-    var justNpmInstall = process.argv.indexOf("--installonly") != -1;
-    if (justNpmInstall) {
-        console.log('Skipping upload, just doing npm install')
-    } else {
-        console.log('Transferring...')
-        return exec('tfx build tasks upload --task-path . --overwrite true').then(logExecReturn);
-    }
+    console.log('Transferring...')
+    return exec('tfx build tasks upload --task-path . --overwrite true').then(logExecReturn);
 }
 
 function logExecReturn(result) {
