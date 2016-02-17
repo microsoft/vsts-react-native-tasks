@@ -27,14 +27,16 @@ Combined with a "Bundle" task it should provide you with all the tools you need 
 
 2. Go to your VSTS or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon). You can use the Empty template.
 
-3. Click **Add build step...** and add the following:
+3. Click **Add build step...** and add the following to your build definition:
    
-   1. **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
-   2. **React Native Prepare** from the **Build** category.
-   3. **[Optional]** **React Native Bundle** from the **Build** category. (Typically not required with 0.19.0 and up but may be needed for upgraded projects.)
-   4. **Xcode Build** or **Android Build** from the **Build** category.
+   1. Add **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
+   2. Add **React Native Prepare** from the **Build** category.
+needed for upgraded projects.)
+   4. Add **Xcode Build** for iOS or **Gradle** for Android from the **Build** category.
 
-4. Configure the the build steps as appropriate for your project - *Check out the tool tips for handy inline documentation.*
+4. **[Optional]** While typically not required recent React Native 0.19.0 and up, you can also add **React Native Bundle** from the **Build** category to create your offline bundle.
+
+5. Configure the the build steps as appropriate for your project - *Check out the tool tips for handy inline documentation.*
 
 In addition, be sure you are running version **0.3.10** or higher of the cross-platform agent and the latest Windows agent as these are required for VS Team Services extension to function. The VSTS hosted agent and [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) agents will already be on this version.
 
