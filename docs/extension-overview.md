@@ -1,4 +1,4 @@
-**This extension targets a platform (React Native) that is rapidly evolving. The extension is therefore in early preview and has been tested for use with React Native 0.16.0 and 0.17.0.**
+**This extension targets a platform (React Native) that is rapidly evolving. The extension is therefore in early preview and has been tested for use with React Native 0.16.0 to 0.20.0.**
 
 [React Native](http://facebook.github.io/react-native/) is an exciting new technology that allows you to bring awesome native app experiences to Android and iOS using a consistent developer experience based on JavaScript and React. Visual Studio Team Services (formerly Visual Studio Online) and Team Foundation Services (TFS) 2015 can be used for building and testing React Native apps in a Continuous Integration (CI) environment thanks to a new [cross-platform agent](http://go.microsoft.com/fwlink/?LinkID=533789) that supports OSX. 
 
@@ -28,7 +28,7 @@ Also be sure to check out the super cool continous delivery features in the [**C
 
 6. Configure the three build steps - *Check out the tool tips for handy inline documentation.*
 
-In addition, be sure you are running version **0.3.10** or higher of the cross-platform agent and the latest Windows agent as these are required for VS Team Services extension to function. The VSTS hosted agent and [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) agents will already be on this version.
+In addition, be sure you are running version **0.3.10** or higher of the cross-platform agent and the latest Windows agent as these are required for VS Team Services extensions to function. The VSTS hosted agent and [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) agents will already be on this version.
 
 **Windows Agent Notes:** 
 - **curl** also needs to be in the path on Windows. You can get curl by installing the [Git Command Line Tools](http://www.git-scm.com/downloads).
