@@ -36,7 +36,7 @@ In addition, be sure you are running version **0.3.10** or higher of the cross-p
 
 ##Additional Task Details
 ###React Native Prepare
-The React Native Prepare task has two primary functions. *Note that if you are running into problems have deviated from the default project provided by React Native init using **0.19.0** or above you may need to make some tweaks.* The task is designed to do the following:
+The React Native Prepare task has two primary functions. *Note that if you are running into problems have deviated from the default project provided by React Native init using 0.19.0 or above you may need to make some tweaks.* The task is designed to do the following:
 
 1. Acquire an appropriate version of Node.js if not found on the system and then modifies your project to use the specified version when bundling. This is particularly useful in environments you may not control. 
 2. Disable the React Native Packager from starting when building iOS which will hang the build and can result in port conflicts when more than one agent is on a given piece of hardware.
