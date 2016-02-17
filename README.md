@@ -1,12 +1,12 @@
 <table style="width: 100%; border-style: none;"><tr>
 <td style="width: 140px; text-align: center;"><img src="docs/media/logo.png" /></td>
-<td><strong>Visual Studio Team Services Extension for React Native</strong><br />
+<td><strong>Visual Studio Team Services Extension for React Native (Preview)</strong><br />
 <i>Streamline CI setup for your React Native app using a set of useful pre-defined build steps.</i><br />
 <a href="http://www.microsoft.com">Install now!</a>
 </td>
 </tr></table>
-# Visual Studio Team Services Extension for React Native
-**This extension targets a platform (React Native) that is rapidly evolving. The extension is therefore in early preview and has been tested for use with React Native 0.16.0 and 0.17.0.**
+# Visual Studio Team Services Extension for React Native (Preview)
+This extension targets a platform (React Native) that is rapidly evolving. **The extension is therefore in early preview and has been tested for use with React Native _0.20.0_. Earlier versions of React Native are missing out-of-box support for selecting non-Global versions of Node.js for iOS required by this extension.**
 
 [React Native](http://facebook.github.io/react-native/) is an exciting new technology that allows you to bring awesome native app experiences to Android and iOS using a consistent developer experience based on JavaScript and React. Visual Studio Team Services (formerly Visual Studio Online) and Team Foundation Services (TFS) 2015 can be used for building and testing React Native apps in a Continuous Integration (CI) environment thanks to a new [cross-platform agent](http://go.microsoft.com/fwlink/?LinkID=533789) that supports OSX. 
 
@@ -15,9 +15,9 @@ When you are developing your React Native app you'll be able to take advantage o
 This extension provides a "React Native Prepare" task to simplify setup and deal with two specific problems: 
 
 1. Node.js version headaches - The task will fetch and alter projects to use a compatible version of Node.js if not found globally installed.
-2. Preventing the "Packager" from starting up as a server and hanging your native Xcode build for iOS and instead explicitly "bundling" prior to the build.
+2. Preventing the "Packager" from starting up as a server and hanging your native Xcode build for iOS.
 
-Also be sure to check out the super cool continous delivery features in the [**CodePush VSTS extension**](https://marketplace.visualstudio.com/items/ms-vsclient.code-push) which also supports React Native!
+Combined with a "Bundle" task it should provide you with all the tools you need to get your React Native App up and running in a CI environment.
 
 ![React Native Prepare](docs/media/screen.png)
 
@@ -27,19 +27,38 @@ Also be sure to check out the super cool continous delivery features in the [**C
 
 2. Go to your VSTS or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon). You can use the Empty template.
 
-3. Click **Add build step...** and select **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
+3. Click **Add build step...** and add the following:
+   
+   1. **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
+   2. **React Native Prepare** from the **Build** category.
+   3. **[Optional]** **React Native Bundle** from the **Build** category. (Typically not required with 0.20.0 but may be needed for upgraded projects.)
+   4. **Xcode Build** or **Android Build** from the **Build** category.
 
-4. Click **Add build step...** and select **React Native Prepare** from the **Build** category
-
-5. Click **Add build step...** and select **Xcode Build** or **Android Build** from the **Build** category
-
-6. Configure the three build steps - *Check out the tool tips for handy inline documentation.*
+4. Configure the the build steps as appropriate for your project - *Check out the tool tips for handy inline documentation.*
 
 In addition, be sure you are running version **0.3.10** or higher of the cross-platform agent and the latest Windows agent as these are required for VS Team Services extension to function. The VSTS hosted agent and [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) agents will already be on this version.
 
 **Windows Agent Notes:** 
-- **curl** also needs to be in the path on Windows. You can get curl by installing the [Git Command Line Tools](http://www.git-scm.com/downloads).
-- Due to an issue with Ract Native you will need to use **react-native 0.17.0-rc** or higher when building on Windows. 
+- **curl** also needs to be in the path on Windows if Node.js < 4.0.0 is globally installed. You can get curl by installing the [Git Command Line Tools](http://www.git-scm.com/downloads).
+
+Also be sure to check out the super cool continous delivery features in the [**CodePush VSTS extension**](https://marketplace.visualstudio.com/items/ms-vsclient.code-push) which also supports React Native!
+
+##Additional Task Details
+###React Native Prepare
+The React Native Prepare task has two primary functions. **Note that if you have deviated from the default project provided by React Native 0.20.0 or are upgrading you may need to make some tweaks.** It is designed to do the following:
+
+1. It acquires an appropriate version of Node.js and then modifies your project to use the specified version when bundling. This is particularly useful in environments you may not control. After acquiring a version of Node.js it makes the following modifications.  
+2. It disables starting up the React Native packager for iOS which will hang the build and can result in port conflicts when more than one agent is on a given piece of hardware.
+
+Under the hood, here is what is happening:
+
+1. **Android**: It modifies **react.gradle** to call node node_modules/react-native/local-cli/cli.js using the correct version of Node.js instead of just blindly calling "react-native bundle".
+2. **iOS**: For iOS, two changes were required:
+    1. It modifies your **Xcode project's Build Phases** to export the correct path to Node.js as an environment variable before calling ./node_modules/react-native/react-native-xcode.sh. If the export is missing it is added.
+    2. It disables the startup of the React Native packager in the **Build Phases in node_modules/react-native/React.xcodeproj** if BUILD_IS_FOR_CI is set as an environment variable as this provides no value in a CI workflow and will hang the agent if it starts and then sets this variable.
+
+###React Native Bundle
+This task is a thin UI layer on top of the standard React Native bundle command from the React Native CLI. It is provided as a convienence mechanism and is not required when using stock 0.20.0 projects as the provided Gradle build and Xcode projects trigger bundling for release by default.
 
 ##Installation
 
