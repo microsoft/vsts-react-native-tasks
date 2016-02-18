@@ -22,8 +22,8 @@ Combined with a "Bundle" task it should provide you with all the tools you need 
 
 3. Click **Add build step...** and add the following:
    
-   1. **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
-   2. **React Native Prepare** from the **Build** category.
+   1. **React Native Prepare** from the **Build** category.
+   2. **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
    3. **[Optional]** **React Native Bundle** from the **Build** category. (Typically not required with 0.19.0 and up but may be needed for upgraded projects.)
    4. **Xcode Build** or **Android Build** from the **Build** category.
 
