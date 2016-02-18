@@ -5,8 +5,8 @@
 # Visual Studio Team Services Extension for React Native (Preview)
 This extension provides a "React Native Prepare" task to simplify setup and deal with two specific problems: 
 
-1. Node.js version headaches - The task will fetch and alter projects to use a compatible version of Node.js if not found globally installed.
-2. Preventing the "Packager" from starting up as a server and hanging your native Xcode build for iOS.
+1. Node.js version headaches - The task will fetch and configure the build to use a compatible version of Node.js if not found globally installed.
+2. Preventing the "Packager" from starting up as a server and hanging and/or failing your native Xcode build for iOS.
 
 Combined with a "Bundle" task it should provide you with all the tools you need to get your React Native App up and running in a CI environment.
 
@@ -20,8 +20,7 @@ Combined with a "Bundle" task it should provide you with all the tools you need 
 
 3. Click **Add build step...** and add the following to your build definition:
    
-   1. **React Native Prepare** from the **Build** category.
-   2. **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
+   2. Add **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
    2. Add **React Native Prepare** from the **Build** category and select the appropriate platform.
    3. Add **Xcode Build** for iOS or **Gradle** for Android from the **Build** category.
 
@@ -36,17 +35,15 @@ In addition, be sure you are running version **0.3.10** or higher of the cross-p
 
 ##Additional Details
 ###React Native Prepare Task
-The React Native Prepare task has two primary functions. *Note that if you are running into problems have deviated from the default project provided by React Native init using 0.19.0 or above you may need to make some tweaks.* The task is designed to do the following:
+The React Native Prepare task has two primary functions. *Note that if you are running into problems and have deviated from the default project provided by React Native init using 0.19.0 or above you may need to make some tweaks.* The task is designed to do the following:
 
-1. Acquire an appropriate version of Node.js if not found on the system and then modifies your project to use the specified version when bundling. This is particularly useful in environments you may not control. 
-2. Disable the React Native Packager from starting when building iOS which will hang the build and can result in port conflicts when more than one agent is on a given piece of hardware.
+1. Acquire and setup the appropriate version of Node.js for use in the build. This is particularly useful in environments you may not control. 
+2. Disable the React Native Packager from starting as a server when building iOS as this provides no value in a CI workflow and will hang the agent and can result in port conflict issues failing the build.
 
 Under the hood, here is what is happening:
 
-1. **Android**: It modifies **react.gradle** to call node node_modules/react-native/local-cli/cli.js using the correct version of Node.js instead of just blindly calling "react-native bundle".
-2. **iOS**: For iOS, two changes were required:
-    1. It modifies the **Bundle React Native code and images** Build Phase in your Xcode project ensure **export NODE_BINARY** is set to the correct path for Node.js before calling ../node_modules/react-native/packager/react-native-xcode.sh. If the export is missing it is added.
-    2. It disables the startup of the React Native Packager as a local server in the Build Phases of **node_modules/react-native/React.xcodeproj** by modifying the embedded shell script to exit as this provides no value in a CI workflow and will hang the agent.
+1. **Android** and **iOS**: It detects if you are running a version of Node.js < 4.0.0 and if so acquires Node 4 and modifies the path for the build so that it is used for the duration of the execution.
+2. **iOS**: It disables the startup of the React Native Packager as a local server in the Build Phases of **node_modules/react-native/React.xcodeproj** by modifying the embedded shell script to exit.
 
 ###React Native Bundle Task
 This task is a thin UI layer on top of the standard React Native bundle command from the React Native CLI. It is provided as a convenience  mechanism and is not required when using stock projects for 0.19.0 and up as the provided Gradle build and Xcode projects trigger bundling when doing a release build by default.
