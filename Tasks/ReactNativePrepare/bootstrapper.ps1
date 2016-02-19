@@ -5,13 +5,8 @@
 
 param (
     [string]$platform,
-    [string]$entryFile,
-    [string]$bundleOutput,
-    [string]$devFlag,
-    [string]$sourcemapOutput,
-    [string]$assetsDest,
-    [string]$transformer,
-    [string]$moreArgs,
+    [string]$xcodeProject
+    [string]$reactGradle
     [string]$cwd
 ) 
 
@@ -22,13 +17,8 @@ $debug=Get-TaskVariable -Context $distributedTaskContext -Name "System.Debug"
  
 # Set env vars as expected by node script
 $Env:INPUT_PLATFORM = $platform
-$Env:INPUT_ENTRYFILE = $entryFile
-$Env:INPUT_BUNDLEOUTPUT = $bundleOutput
-$Env:INPUT_DEVFLAG = $devFlag
-$Env:INPUT_SOURCEMAPOUTPUT = $sourcemapOutput
-$Env:INPUT_ASSETSDEST = $assetsDest
-$Env:INPUT_TRANSFORMER = $transformer
-$Env:INPUT_MOREARGS = $moreArgs
+$Env:XCODE_PROJECT = $xcodeProject
+$Env:REACT_GRADLE = $reactGradle
 $Env:INPUT_CWD = $cwd
 $Env:SYSTEM_DEBUG = $debug
 

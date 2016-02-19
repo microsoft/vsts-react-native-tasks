@@ -1,8 +1,8 @@
 {
     "id": "E51A9093-748D-4F10-99ED-483F5372CDAA",
-    "name": "ReactNativeBundle",
+    "name": "ReactNativePrepare",
     "friendlyName": "React Native Prepare",
-    "description": "Prep a React Native project to use the right version of Node.js and succesfully generate an offline bundle.",
+    "description": "Prep a React Native project to use the right version of Node.js and ensure the build doesn't start the packager.",
     "category": "Build",
     "visibility": [
                 "Build"
@@ -11,97 +11,50 @@
     "version": {
         "Major": 0,
         "Minor": 0,
-        "Patch": 56
+        "Patch": 88
     },
     "demands": [
         "npm"
     ],
     "instanceNameFormat": "React Native Prepare $(platform)",
-     "groups": [
-        {
-            "name":"advanced",
-            "displayName":"Advanced",
-            "isExpanded":false
-        }
-    ],
     "inputs": [
         {
             "name": "platform", 
             "type": "radio", 
             "label": "Platform", 
-            "required":true,
+            "required": true,
             "defaultValue": "ios",
-            "helpMarkDown": "Platform to prepare. iOS offline bundle settings can be configured via this task while Android offline bundle settings should be configured in android/app/build.gradle.",
+            "helpMarkDown": "Platform to prepare.",
             "options": {
                 "ios": "iOS",
                 "android": "Android"
             }
-        },  
-        { 
-            "name": "entryFile", 
+        },
+        {
+            "name": "xcodeProject", 
             "type": "filePath", 
-            "label": "Entry File", 
-            "required":false, 
-            "defaultValue": "index.ios.js",
+            "label": "Xcode Project(s)",
+            "required": false, 
+            "helpMarkDown": "Relative path from repo root to the Xcode project file(s).  These are patched to use the correct version of node.",
+            "defaultValue": "ios/*.xcodeproj/project.pbxproj",
             "visibleRule": "platform = ios"
         },
-        { 
-            "name": "bundleOutput", 
+        {
+            "name": "reactGradle", 
             "type": "filePath", 
-            "label": "Bundle Output", 
-            "required":false, 
-            "defaultValue": "ios/main.jsbundle",
-            "visibleRule": "platform = ios"
+            "label": "react.gradle Path",
+            "required": false, 
+            "helpMarkDown": "Relative path from repo root to the react.gradle file(s).  These are patched to use the correct version of node.",
+            "defaultValue": "android/app/react.gradle",
+            "visibleRule": "platform = android"
         },
-        { 
-            "name": "assetsDest", 
-            "type": "filePath", 
-            "label": "Asset Destination Path", 
-            "required":false, 
-            "defaultValue": "ios/*/Images.xcassets",
-            "visibleRule": "platform = ios"
-        },
-        { 
-            "name": "devFlag", 
-            "type": "boolean", 
-            "label": "Dev Bundle", 
-            "required": false,
-            "defaultValue": true,
-            "helpMarkDown": "When unchecked, warnings are disabled and code is minified.",
-            "visibleRule": "platform = ios"
-        },
-        { 
-            "name": "sourcemapOutput", 
-            "type": "filePath", 
-            "label": "Sourcemap Output Path", 
-            "required":false, 
-            "defaultValue": "",
-            "visibleRule": "platform = ios"
-        },
-        { 
-            "name": "transformer", 
-            "type": "filePath", 
-            "label": "Custom Transformer", 
-            "required":false, 
-            "defaultValue": "",
-            "visibleRule": "platform = ios"
-        },
-        { 
-            "name": "moreArgs", 
-            "type": "string", 
-            "label": "Arguments", 
-            "required":false, 
-            "defaultValue": "",
-            "visibleRule": "platform = ios"
-        },
-        { 
+        {
             "name": "cwd", 
             "type": "filePath", 
             "label": "Working Directory", 
             "defaultValue":"", 
-            "required":false,
-            "helpMarkDown": "Working directory for command runs. Defaults to the root of the repository.",
-            "groupName":"advanced"
+            "required": false,
+            "helpMarkDown": "Working directory for command runs. Defaults to the root of the repository."
         }
     ],
     "execution": {
@@ -114,5 +67,5 @@
             "argumentFormat": "",
             "workingDirectory": "$(currentDirectory)"
         }        
-    }    
+    }
 }
