@@ -20,9 +20,9 @@ Combined with a "Bundle" task it should provide you with all the tools you need 
 
 3. Click **Add build step...** and add the following to your build definition:
    
-   1. Add **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced &gt; Arguments to speed up the build and set **Advanced &gt; Working Directory** if your React Native project structure is not in the repository root. You may need to add **--force** if you encounter EPERM issues due to a [npm bug](https://github.com/npm/npm/issues/9696). 
+   1. Add **npm** from the **Package** category. Specify **install** as the Command, **--no-optional --only=prod** under Advanced &gt; Arguments to speed up the build, and set **Advanced &gt; Working Directory** if your React Native project structure is not in the repository root. You may need to add **--force** if you encounter EPERM issues due to a [npm bug](https://github.com/npm/npm/issues/9696). 
 
-   2. Add **React Native Prepare** from the **Build** category and select the appropriate platform. Set **Advanced &gt; Working Directory** and the **Xcode Project(s)** or **react.gradle Path** option if your React Native project structure is not in the repisotry root.
+   2. Add **React Native Prepare** from the **Build** category and select the appropriate platform. Set **Working Directory** and the **Xcode Project(s)** or **react.gradle Path** option if your React Native project structure is not in the repisotry root.
   
    3. Add **Xcode Build** for iOS or **Gradle** for Android from the **Build** category and configure your native build. *Check out the tool tips for handy inline documentation.*
 
