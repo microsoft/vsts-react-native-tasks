@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "react-native-extension",
     "name": "React Native",
-    "version": "0.0.88",
+    "version": "0.0.94",
     "publisher": "ms-vsclient",
     "public": false,
     "preview": true,
@@ -45,6 +45,9 @@
     "files": [
         {
             "path": "Tasks/ReactNativePrepare"
+        },
+        {
+            "path": "Tasks/ReactNativeBundle"
         }
     ],
     "contributions": [
@@ -61,7 +64,7 @@
             "type": "ms.vss-distributed-task.task",
             "targets": [ "ms.vss-distributed-task.tasks" ],
             "properties": {
-                "name": "Tasks/ReactNativePrepare"
+                "name": "Tasks/ReactNativeBundle"
             }
         }
     ]

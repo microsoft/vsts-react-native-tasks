@@ -53,7 +53,7 @@ function fixProjects() {
 function fixXcproj() {
     var xcodeProject = taskLibrary.getInput('xcodeProject', true);
 
-    if (xcodeProject === buildSourceDirectory) {
+    if (! xcodeProject || xcodeProject === '' || xcodeProject === buildSourceDirectory) {
         taskLibrary.debug("No Xcode project set, so the project won't be patched");
     }
     else {
@@ -144,9 +144,9 @@ function fixXcproj() {
 }
 
 function fixGradleProj() {
-    var reactGradle = taskLibrary.getInput('reactGradle', true);
+    var reactGradle = taskLibrary.getInput('reactGradle', false);
 
-    if (reactGradle === buildSourceDirectory) {
+    if (! reactGradle || reactGradle === '' || reactGradle === buildSourceDirectory) {
         taskLibrary.debug("No react.gradle property set, so react.gradle won't be patched.");
     }
     else {
