@@ -49,8 +49,10 @@ The React Native Prepare task has two primary functions. *Note that if you are r
 
 Under the hood, here is what is happening:
 
-1. **Android** and **iOS**: It detects if you are running a version of Node.js < 4.0.0 and if so acquires Node 4 and modifies the path for the build so that it is used for the duration of the execution.
-2. **iOS**: It disables the startup of the React Native Packager as a local server in the Build Phases of **node_modules/react-native/React.xcodeproj** by modifying the embedded shell script to exit.
+1. **Android:** It modifies **react.gradle** to call node node_modules/react-native/local-cli/cli.js using the correct version of Node.js instead of just blindly calling "react-native bundle". This solves both the node version problem and avoids having to have react-native-cli installed globally.
+2. **iOS:** For iOS, two changes were required:
+    1. It modifies the **Bundle React Native code and images** Build Phase in your Xcode project ensure **export NODE_BINARY** is set to the correct path for Node.js before calling ../node_modules/react-native/packager/react-native-xcode.sh. If the export is missing it is added.
+    2. It disables the startup of the **React Native Packager** as a local server in the Build Phases of **node_modules/react-native/React.xcodeproj** by modifying the embedded shell script to exit as this provides no value in a CI workflow and will hang the agent.
 
 ###React Native Bundle Task
 This task is a thin UI layer on top of the standard React Native bundle command from the React Native CLI. It is provided as a convenience mechanism and is not required when using stock projects for 0.19.0 and up as the provided Gradle build and Xcode projects trigger bundling when doing a release build by default.
