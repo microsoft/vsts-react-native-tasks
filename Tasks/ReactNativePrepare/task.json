@@ -59,7 +59,7 @@
     ],
     "execution": {
         "Node": {
-            "target": "react-native.js",
+            "target": "react-native-prepare.js",
             "argumentFormat": ""
         },
         "PowerShell": {
