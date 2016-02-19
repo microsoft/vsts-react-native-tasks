@@ -1,0 +1,126 @@
+{
+    "id": "F93F1846-0EB2-4C77-8A8D-7CC52597d3C8",
+    "name": "ReactNativeBundle",
+    "friendlyName": "React Native Bundle",
+    "description": "Generate an offline bundle for a React Native project.",
+    "category": "Build",
+    "visibility": [
+                "Build"
+                  ],
+    "author": "Microsoft Corporation",
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 88
+    },
+    "demands": [
+        "npm"
+    ],
+    "instanceNameFormat": "React Native Bundle $(platform)",
+     "groups": [
+        {
+            "name":"advanced",
+            "displayName":"Advanced",
+            "isExpanded":false
+        }
+    ],
+    "inputs": [
+        {
+            "name": "platform", 
+            "type": "radio", 
+            "label": "Platform", 
+            "required":true,
+            "defaultValue": "ios",
+            "helpMarkDown": "Platform to prepare.",
+            "options": {
+                "ios": "iOS",
+                "android": "Android"
+            }
+        },  
+        { 
+            "name": "entryFile", 
+            "type": "filePath", 
+            "label": "Entry File", 
+            "required":false, 
+            "defaultValue": "index.ios.js",
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "xcodeProject", 
+            "type": "filePath", 
+            "label": "Entry File", 
+            "required":false, 
+            "defaultValue": "index.ios.js",
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "bundleOutput", 
+            "type": "filePath", 
+            "label": "Bundle Output", 
+            "required":false, 
+            "defaultValue": "ios/main.jsbundle",
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "assetsDest", 
+            "type": "filePath", 
+            "label": "Asset Destination Path", 
+            "required":false, 
+            "defaultValue": "ios/*/Images.xcassets",
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "devFlag", 
+            "type": "boolean", 
+            "label": "Dev Bundle", 
+            "required": false,
+            "defaultValue": true,
+            "helpMarkDown": "When unchecked, warnings are disabled and code is minified.",
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "sourcemapOutput", 
+            "type": "filePath", 
+            "label": "Sourcemap Output Path", 
+            "required":false, 
+            "defaultValue": "",
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "transformer", 
+            "type": "filePath", 
+            "label": "Custom Transformer", 
+            "required":false, 
+            "defaultValue": "",
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "moreArgs", 
+            "type": "string", 
+            "label": "Arguments", 
+            "required":false, 
+            "defaultValue": "",
+            "visibleRule": "platform = ios"
+        },
+        { 
+            "name": "cwd", 
+            "type": "filePath", 
+            "label": "Working Directory", 
+            "defaultValue":"", 
+            "required":false,
+            "helpMarkDown": "Working directory for command runs. Defaults to the root of the repository.",
+            "groupName":"advanced"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "react-native-bundle.js",
+            "argumentFormat": ""
+        },
+        "PowerShell": {
+            "target": "$(currentDirectory)\\bootstrapper.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(currentDirectory)"
+        }        
+    }    
+}

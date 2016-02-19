@@ -1,14 +1,19 @@
 ﻿{
-    "manifestVersion": 1.0,
+    "manifestVersion": 1,
     "id": "react-native-extension",
-    "name": "React Native Build",
-    "version": "0.1.0",
+    "name": "React Native",
+    "version": "0.0.88",
     "publisher": "ms-vsclient",
     "public": false,
     "preview": true,
     "description": "Streamline CI setup for your React Native app using a set of useful pre-defined build steps.",
     "categories": [
         "Build and release"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
     ],
     "visibility": [
         "Build and release"
@@ -44,11 +49,19 @@
     ],
     "contributions": [
         {
+            "id": "reactnativepreparetask",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [ "ms.vss-distributed-task.tasks" ],
+            "properties": {
+                "name": "Tasks/ReactNativePrepare"
+            }
+        },
+        {
             "id": "reactnativebundletask",
             "type": "ms.vss-distributed-task.task",
             "targets": [ "ms.vss-distributed-task.tasks" ],
             "properties": {
-                "name": "Tasks/ReactNativeBundle"
+                "name": "Tasks/ReactNativePrepare"
             }
         }
     ]

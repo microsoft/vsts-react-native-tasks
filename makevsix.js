@@ -10,8 +10,8 @@ var commandLineArgs = require('command-line-args');
 
 var devManifestOverride = {
     public: false,
-    name: "Cordova Build-Dev",
-    id: "cordova-extension-dev",
+    name: "React Native-Dev",
+    id: "react-native-extension-dev",
     publisher: "ms-mobiledevops-test"
 }
 
@@ -50,11 +50,11 @@ if (! options.skipinstalldeps)
     installTasks()
 
 if (options.makeprod)
-    echoAndExec('Creating VSIX', 'tfx extension create --manifest-globs mobiledevopscordovaextension.json --override ' + toOverrideString(prodManifestOverride));
+    echoAndExec('Creating VSIX', 'tfx extension create --manifest-globs react-native-extension.json --override ' + toOverrideString(prodManifestOverride));
 
 if (options.maketest)
     echoAndExec('Creating test VSIX',
-        'tfx extension create --manifest-globs mobiledevopscordovaextension.json --override ' + toOverrideString(devManifestOverride));
+        'tfx extension create --manifest-globs react-native-extension.json --override ' + toOverrideString(devManifestOverride));
 
 if (options.publishtest) {
     var accessToken = env['PUBLISH_ACCESSTOKEN'];
@@ -64,7 +64,7 @@ if (options.publishtest) {
     }
 
     echoAndExec('Publishing test VSIX',
-        'tfx extension publish --manifest-globs mobiledevopscordovaextension.json --override ' + toOverrideString(devManifestOverride) + ' --share-with mobiledevops x04ty29er --token ' + accessToken);
+        'tfx extension publish --manifest-globs react-native-extension.json --override ' + toOverrideString(devManifestOverride) + ' --share-with mobiledevops --token ' + accessToken);
 }
 
 //

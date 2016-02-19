@@ -1,13 +1,13 @@
 {
-  "name": "vsts-task-react-native-prepare",
+  "name": "vsts-task-react-native-bundle",
   "version": "1.0.0",
-  "description": "A VSTS build task for preparing React Native projects to build.",
+  "description": "A VSTS build task for creating React Native bundles.",
   "author": "Microsoft",
   "license": "MIT",
   "dependencies": {
     "glob": "^6.0.1",
     "minimatch": "^2.0.10",
-    "q": "^1.4.1",
+    "q":"^1.4.1",
     "semver": "^5.1.0",
     "vso-task-lib": "^0.5.5"
   }
