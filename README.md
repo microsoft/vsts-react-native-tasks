@@ -2,7 +2,7 @@
 <td style="width: 140px; text-align: center;"><img src="docs/media/logo.png" /></td>
 <td><strong>Visual Studio Team Services Extension for React Native (Preview)</strong><br />
 <i>Streamline CI setup for your React Native app using a set of useful pre-defined build steps.</i><br />
-<a href="http://www.microsoft.com">Install now!</a>
+<a href="https://marketplace.visualstudio.com/items?itemName=ms-vsclient.react-native-extension">Install now!</a>
 </td>
 </tr></table>
 # Visual Studio Team Services Extension for React Native (Preview)
