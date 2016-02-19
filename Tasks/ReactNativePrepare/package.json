@@ -1,6 +1,6 @@
 {
   "name": "vsts-task-react-native-prepare",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A VSTS build task for preparing React Native projects to build.",
   "author": "Microsoft",
   "license": "MIT",
