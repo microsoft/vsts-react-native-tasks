@@ -24,7 +24,16 @@
     "links": {
         "repository": {
             "uri": "http://github.com/Microsoft/vsts-react-native-tasks"
-        }
+        },
+        "learn": {
+            "uri": "http://github.com/Microsoft/vsts-react-native-tasks"
+        },
+        "issues": {
+            "uri": "https://github.com/Microsoft/vsts-react-native-tasks/issues"  
+        },
+        "support": {
+            "uri": "https://github.com/Microsoft/vsts-react-native-tasks/issues"
+        }        
     },
     "icons": {
         "default": "docs/media/logo.png",
@@ -45,6 +54,9 @@
     "files": [
         {
             "path": "Tasks/ReactNativePrepare"
+        },
+        {
+            "path": "Tasks/ReactNativeBundle"
         }
     ],
     "contributions": [
@@ -61,8 +73,9 @@
             "type": "ms.vss-distributed-task.task",
             "targets": [ "ms.vss-distributed-task.tasks" ],
             "properties": {
-                "name": "Tasks/ReactNativePrepare"
+                "name": "Tasks/ReactNativeBundle"
             }
         }
     ]
+
 }

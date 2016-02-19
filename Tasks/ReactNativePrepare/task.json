@@ -2,7 +2,7 @@
     "id": "E51A9093-748D-4F10-99ED-483F5372CDAA",
     "name": "ReactNativePrepare",
     "friendlyName": "React Native Prepare",
-    "description": "Prep a React Native project to avoid build hangs for iOS and use the right version of Node.js when generating an offline bundle.",
+    "description": "Prep a React Native project to avoid build hangs for iOS and to use the right version of Node.js when generating an offline bundle.",
     "helpMarkDown": "[More Information](https://github.com/Microsoft/vsts-react-native-tasks)",
     "category": "Build",
     "visibility": [
@@ -55,7 +55,7 @@
             "label": "Working Directory", 
             "defaultValue":"", 
             "required": false,
-            "helpMarkDown": "Working directory for command runs. Defaults to the root of the repository."
+            "helpMarkDown": "Working directory for command runs. Typically the location of your package.json file and is used to find the react-native node module. Defaults to the root of the repository."
         }
     ],
     "execution": {
