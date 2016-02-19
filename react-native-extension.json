@@ -2,10 +2,9 @@
     "manifestVersion": 1,
     "id": "react-native-extension",
     "name": "React Native",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "ms-vsclient",
-    "public": false,
-    "preview": true,
+    "galleryFlags": [ "Preview" ],
     "description": "Streamline CI setup for your React Native app using a set of useful pre-defined build steps.",
     "categories": [
         "Build and release"
