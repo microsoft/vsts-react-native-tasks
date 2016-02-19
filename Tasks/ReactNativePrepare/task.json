@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 0,
-        "Patch": 88
+        "Patch": 94
     },
     "demands": [
         "npm"

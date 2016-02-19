@@ -25,7 +25,7 @@ var platform = taskLibrary.getInput("platform", true);
 var nodeModulesPath = path.join(workingDirectory, 'node_modules');
 if (!fs.existsSync(path.join(nodeModulesPath, 'react-native'))) {
     taskLibrary.debug('react-native npm package not installed in ' + nodeModulesPath);
-    var errMessage = 'React Native npm package (react-native) not installed locally. Add the "npm" task to your build definition with the "install" command and "--no-optional --only=prod" under Advanced > Arguments.  Also ensure Advanced > Working Directory is set in the React Native Prepare task if your React Native project is not off the root directory.';
+    var errMessage = 'React Native npm package (react-native) not installed locally. Add the "npm" task to your build definition with the "install" command and "--no-optional --only=prod" under Advanced > Arguments.  Also ensure Advanced > Working Directory is set in the React Native Bundle task if your React Native project is not off the root directory.';
     taskLibrary.setResult(1, errMessage);
 } else {
     nodeManager.setupMinNode('4.0.0','4.2.3', false)
@@ -39,23 +39,23 @@ if (!fs.existsSync(path.join(nodeModulesPath, 'react-native'))) {
 }
 
 function bundle() {
-    var entryFile = taskLibrary.getInput("entryFile",true);
-    var bundleOutput = taskLibrary.getInput("bundleOutput",true);
+    var entryFile = taskLibrary.getInput("entryFile", true);
+    var bundleOutput = taskLibrary.getInput("bundleOutput", true);
     var devFlag = (taskLibrary.getInput('devFlag') == 'true');
     var bundleCommand = new taskLibrary.ToolRunner(taskLibrary.which('node', true));
     bundleCommand.arg([path.join('node_modules','react-native','local-cli','cli.js'), 'bundle', '--platform', platform, '--entry-file', entryFile, '--bundle-output', bundleOutput, '--dev' , devFlag]);
 
-    var transformer = taskLibrary.getInput('transformer',false);
+    var transformer = taskLibrary.getInput('transformer', false);
     if (transformer && transformer !== '' && transformer != buildSourceDirectory) {
         bundleCommand.arg(['--transformer', transformer]);
     }
 
-    var sourcemapOutput = taskLibrary.getInput('sourcemapOutput',false);
+    var sourcemapOutput = taskLibrary.getInput('sourcemapOutput', false);
     if (sourcemapOutput && sourcemapOutput !== '' && sourcemapOutput != buildSourceDirectory) {
         bundleCommand.arg(['--sourcemap-output', sourcemapOutput]);
     }
 
-    var assetsDest = taskLibrary.getInput('assetsDest',false);
+    var assetsDest = taskLibrary.getInput('assetsDest', false);
     if (assetsDest && assetsDest !== '' && assetsDest != buildSourceDirectory) {
         if (!fs.existsSync(assetsDest)) {
             var xcassetDirs = glob.sync(assetsDest);
@@ -66,7 +66,7 @@ function bundle() {
         bundleCommand.arg(['--assets-dest', assetsDest]);
     }
 
-    var moreArgs = taskLibrary.getInput('moreArgs',false);
+    var moreArgs = taskLibrary.getInput('moreArgs', false);
     if (moreArgs && moreArgs !== '') {
         bundleCommand.arg(moreArgs);
     }

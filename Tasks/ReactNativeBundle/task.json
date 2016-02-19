@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 0,
-        "Patch": 88
+        "Patch": 94
     },
     "demands": [
         "npm"
@@ -42,25 +42,22 @@
             "name": "entryFile", 
             "type": "filePath", 
             "label": "Entry File", 
-            "required":false, 
-            "defaultValue": "index.ios.js",
-            "visibleRule": "platform = ios"
+            "required": false,
+            "defaultValue": "index.ios.js"
         },
         { 
             "name": "bundleOutput", 
             "type": "filePath", 
             "label": "Bundle Output", 
             "required":false, 
-            "defaultValue": "ios/main.jsbundle",
-            "visibleRule": "platform = ios"
+            "defaultValue": "ios/main.jsbundle"
         },
         { 
             "name": "assetsDest", 
             "type": "filePath", 
             "label": "Asset Destination Path", 
             "required":false, 
-            "defaultValue": "ios/*/Images.xcassets",
-            "visibleRule": "platform = ios"
+            "defaultValue": "ios/*/Images.xcassets"
         },
         { 
             "name": "devFlag", 
@@ -68,32 +65,28 @@
             "label": "Dev Bundle", 
             "required": false,
             "defaultValue": true,
-            "helpMarkDown": "When unchecked, warnings are disabled and code is minified.",
-            "visibleRule": "platform = ios"
+            "helpMarkDown": "When unchecked, warnings are disabled and code is minified."
         },
         { 
             "name": "sourcemapOutput", 
             "type": "filePath", 
             "label": "Sourcemap Output Path", 
             "required":false, 
-            "defaultValue": "",
-            "visibleRule": "platform = ios"
+            "defaultValue": ""
         },
         { 
             "name": "transformer", 
             "type": "filePath", 
             "label": "Custom Transformer", 
             "required":false, 
-            "defaultValue": "",
-            "visibleRule": "platform = ios"
+            "defaultValue": ""
         },
         { 
             "name": "moreArgs", 
             "type": "string", 
             "label": "Arguments", 
             "required":false, 
-            "defaultValue": "",
-            "visibleRule": "platform = ios"
+            "defaultValue": ""
         },
         { 
             "name": "cwd", 
