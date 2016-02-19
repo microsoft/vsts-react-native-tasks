@@ -1,8 +1,9 @@
 {
     "id": "E51A9093-748D-4F10-99ED-483F5372CDAA",
-    "name": "ReactNativeBundle",
+    "name": "ReactNativePrepare",
     "friendlyName": "React Native Prepare",
-    "description": "Prep a React Native project to use the right version of Node.js and succesfully generate an offline bundle.",
+    "description": "Prep a React Native project to avoid build hangs for iOS and use the right version of Node.js when generating an offline bundle.",
+    "helpMarkDown": "[More Information](https://github.com/Microsoft/vsts-react-native-tasks)",
     "category": "Build",
     "visibility": [
                 "Build"
@@ -31,7 +32,7 @@
             "label": "Platform", 
             "required":true,
             "defaultValue": "ios",
-            "helpMarkDown": "Platform to prepare. iOS offline bundle settings can be configured via this task while Android offline bundle settings should be configured in android/app/build.gradle.",
+            "helpMarkDown": "Platform to prepare.",
             "options": {
                 "ios": "iOS",
                 "android": "Android"
