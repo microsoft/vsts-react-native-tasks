@@ -7,12 +7,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Microsoft/vsts-react-native-tasks.git"
-  },  
+  },
   "dependencies": {
     "glob": "^6.0.1",
     "minimatch": "^2.0.10",
     "q": "^1.4.1",
     "semver": "^5.1.0",
-    "vsts-task-lib": "^0.5.10"
+    "vso-task-lib": "^0.5.5"
   }
 }
