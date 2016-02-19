@@ -4,6 +4,10 @@
   "description": "A set of VSTS tasks for building React Native apps.",
   "author": "Microsoft",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Microsoft/vsts-react-native-tasks.git"
+  },
   "devDependencies": {
     "command-line-args": "^2.1.4",
     "shelljs": "^0.6.0"
