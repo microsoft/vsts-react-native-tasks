@@ -24,7 +24,16 @@
     "links": {
         "repository": {
             "uri": "http://github.com/Microsoft/vsts-react-native-tasks"
-        }
+        },
+        "learn": {
+            "uri": "http://github.com/Microsoft/vsts-react-native-tasks"
+        },
+        "issues": {
+            "uri": "https://github.com/Microsoft/vsts-react-native-tasks/issues"  
+        },
+        "support": {
+            "uri": "https://github.com/Microsoft/vsts-react-native-tasks/issues"
+        }        
     },
     "icons": {
         "default": "docs/media/logo.png",
@@ -68,4 +77,5 @@
             }
         }
     ]
+
 }

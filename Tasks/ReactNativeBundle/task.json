@@ -3,6 +3,7 @@
     "name": "ReactNativeBundle",
     "friendlyName": "React Native Bundle",
     "description": "Generate an offline bundle for a React Native project.",
+    "helpMarkDown": "[More Information](https://github.com/Microsoft/vsts-react-native-tasks)",
     "category": "Build",
     "visibility": [
                 "Build"
@@ -31,7 +32,7 @@
             "label": "Platform", 
             "required":true,
             "defaultValue": "ios",
-            "helpMarkDown": "Platform to prepare.",
+            "helpMarkDown": "Platform to bundle.",
             "options": {
                 "ios": "iOS",
                 "android": "Android"
@@ -41,7 +42,7 @@
             "name": "entryFile", 
             "type": "filePath", 
             "label": "Entry File", 
-            "required":false, 
+            "required": false,
             "defaultValue": "index.ios.js"
         },
         { 
@@ -93,7 +94,7 @@
             "label": "Working Directory", 
             "defaultValue":"", 
             "required":false,
-            "helpMarkDown": "Working directory for command runs. Defaults to the root of the repository.",
+            "helpMarkDown": "Working directory for command runs. Typically the location of your package.json file and is used to find the react-native node module. Defaults to the root of the repository.",
             "groupName":"advanced"
         }
     ],
