@@ -1,6 +1,6 @@
 {
   "name": "vsts-react-native-tasks",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A set of VSTS tasks for building React Native apps.",
   "author": "Microsoft",
   "license": "MIT",
