@@ -20,13 +20,13 @@ Combined with a "Bundle" task it should provide you with all the tools you need 
 
 3. Click **Add build step...** and add the following to your build definition:
    
-   2. Add **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced > Arguments to speed up the build. You may need to add **--force** if you encounter EPERM issues in the Hosted VSTS agent due to a [npm issue](https://github.com/npm/npm/issues/9696).
-   2. Add **React Native Prepare** from the **Build** category and select the appropriate platform.
-   3. Add **Xcode Build** for iOS or **Gradle** for Android from the **Build** category.
+   1. Add **npm** from the **Package** category. Specify **--no-optional --only=prod** under Advanced &gt; Arguments to speed up the build and set **Advanced &gt; Working Directory** if your React Native project structure is not in the repository root. You may need to add **--force** if you encounter EPERM issues due to a [npm bug](https://github.com/npm/npm/issues/9696). 
+
+   2. Add **React Native Prepare** from the **Build** category and select the appropriate platform. Set **Advanced &gt; Working Directory** and the **Xcode Project(s)** or **react.gradle Path** option if your React Native project structure is not in the repisotry root.
+  
+   3. Add **Xcode Build** for iOS or **Gradle** for Android from the **Build** category and configure your native build. *Check out the tool tips for handy inline documentation.*
 
 4. **[Optional]** While typically not required for React Native 0.19.0 and up, you can also add the **React Native Bundle** task from the **Build** category to create your offline bundle if you've modified the default generated projects.
-
-5. Configure the build steps as appropriate for your project - *Check out the tool tips for handy inline documentation.*
 
 In addition, be sure you are running version **0.3.10** or higher of the cross-platform agent and the latest Windows agent as these are required for VS Team Services extension to function. The VSTS hosted agent and [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) agents will already be on this version.
 
