@@ -9,14 +9,13 @@ var path = require('path'),
 var commandLineArgs = require('command-line-args');
 
 var devManifestOverride = {
-    public: false,
     name: "React Native-Dev",
     id: "react-native-extension-dev",
     publisher: "ms-mobiledevops-test"
 }
 
 var prodManifestOverride = {
-    public: true
+    galleryFlags: [ "Public", "Preview" ]
 }
 
 var cli = commandLineArgs([

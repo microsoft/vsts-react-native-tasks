@@ -10,7 +10,7 @@ This extension provides a "React Native Prepare" task to simplify setup and deal
 
 Combined with a "Bundle" task it should provide you with all the tools you need to get your React Native App up and running in a CI environment.
 
-![React Native Prepare](docs/media/screen.png)
+![React Native Prepare](media/screen.png)
 
 ## Quick Start
 
