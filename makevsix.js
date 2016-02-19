@@ -22,7 +22,7 @@ var prodManifestOverride = {
 var cli = commandLineArgs([
   { name: 'maketest', alias: 't', description: 'make test VSIX', type: Boolean },
   { name: 'makeprod', alias: 'p', description: 'make production VSIX', type: Boolean },
-  { name: 'publishtest', alias: 'b', description: 'publish test VSIX', type: Boolean },
+  { name: 'publishtest', alias: 'b', description: 'publish test VSIX; must supply access token as argument', type: String },
   { name: 'skipinstalldeps', alias: 's', description: 'skip npm installing task dependencies (to speed up)', type: Boolean },
 ]);
 
@@ -57,11 +57,7 @@ if (options.maketest)
         'tfx extension create --manifest-globs react-native-extension.json --override ' + toOverrideString(devManifestOverride));
 
 if (options.publishtest) {
-    var accessToken = env['PUBLISH_ACCESSTOKEN'];
-    if (accessToken === undefined) {
-        echo("Must set PUBLISH_ACCESSTOKEN environment variable to publish a test VSIX");
-        exit(1);
-    }
+    var accessToken = options.publishtest;
 
     echoAndExec('Publishing test VSIX',
         'tfx extension publish --manifest-globs react-native-extension.json --override ' + toOverrideString(devManifestOverride) + ' --share-with mobiledevops --token ' + accessToken);

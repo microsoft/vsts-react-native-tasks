@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "react-native-extension",
     "name": "React Native",
-    "version": "0.0.94",
+    "version": "0.1.0",
     "publisher": "ms-vsclient",
     "public": false,
     "preview": true,
