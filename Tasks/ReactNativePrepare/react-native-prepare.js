@@ -70,7 +70,7 @@ function fixXcproj() {
         var projFiles = glob.sync(xcodeProject);
 
         if (projFiles.length == 0) {
-            taskLibrary.setResult(1, "No Xcode project files matching '" + xcodeProject + "' found.");
+            taskLibrary.setResult(1, "No Xcode project file(s) matching '" + xcodeProject + "' found.");
         }
 
         projFiles.forEach(function(projFile) {
@@ -153,7 +153,7 @@ function fixGradleProj() {
         var reactGradleFiles = glob.sync(reactGradle);
 
         if (reactGradleFiles.length == 0) {
-            taskLibrary.setResult(1, "No react.gradle files matching '" + reactGradleFiles + "' found.");
+            taskLibrary.setResult(1, "No react.gradle file(s) matching '" + reactGradle + "' found.");
         }
 
         reactGradleFiles.forEach(function(reactGradleFile) {
