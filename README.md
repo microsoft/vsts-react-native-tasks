@@ -44,8 +44,8 @@ In addition, be sure you are running version **0.3.10** or higher of the cross-p
 **Windows Agent Notes:** 
 - **curl** also needs to be in the path on Windows if Node.js < 4.0.0 is globally installed. You can get curl by installing the [Git Command Line Tools](http://www.git-scm.com/downloads).
 
-##Additional Details
-###React Native Prepare Task
+## Additional Details
+### React Native Prepare Task
 The React Native Prepare task has two primary functions. *Note that if you are running into problems have deviated from the default project provided by React Native init using 0.19.0 or above you may need to make some tweaks.* The task is designed to do the following:
 
 1. Acquire and setup the appropriate version of Node.js for use in the build. This is particularly useful in environments you may not control. 
@@ -58,10 +58,10 @@ Under the hood, here is what is happening:
     1. It modifies the **Bundle React Native code and images** Build Phase in your Xcode project ensure **export NODE_BINARY** is set to the correct path for Node.js before calling ../node_modules/react-native/packager/react-native-xcode.sh. If the export is missing it is added.
     2. It disables the startup of the **React Native Packager** as a local server in the Build Phases of **node_modules/react-native/React.xcodeproj** by modifying the embedded shell script to exit as this provides no value in a CI workflow and will hang the agent.
 
-###React Native Bundle Task
+### React Native Bundle Task
 This task is a thin UI layer on top of the standard React Native bundle command from the React Native CLI. It is provided as a convenience mechanism and is not required when using stock projects for 0.19.0 and up as the provided Gradle build and Xcode projects trigger bundling when doing a release build by default.
 
-###FAQ
+### FAQ
 **Q:** Is there anything I need to do when upgrading a project to 0.19.0+ or up to ensure the project builds?
 
 **A:** If your project has a different folder setup than a typical React Native project, you may need to update the Working Directory and the Xcode Project(s) or react.gradle Path options in the React Native Prepare task. The Working Directory should be pointed to where your package.json is present and you will be running npm install. Next, check to see if your iOS project has a "Bundle React Native code and images" Build Phase that is calling ../node_modules/react-native/packager/react-native-xcode.sh. If not, you likely also need to use the React Native Bundle task to generate your offline bundle.
@@ -74,7 +74,7 @@ This task is a thin UI layer on top of the standard React Native bundle command 
 
 **A:** Configure the agent as a launch agent (./svc.sh install agent) or run it as an interactive process (node agent/vsoagent.js) to ensure Xcode is able to access the appropriate keychains. See the [secure app signing](https://msdn.microsoft.com/Library/vs/alm/Build/apps/secure-certs) tutorial for additional details. You could also opt to use [MacinCloud](http://go.microsoft.com/fwlink/?LinkID=691834) instead.
 
-##Installation
+## Installation
 
 ### Visual Studio Team Services / Visual Studio Online
 1. Install the [Visual Studio Team Services Extension for React Native](http://www.microsoft.com)
